@@ -5,7 +5,6 @@ import '../models/prayer_times_model.dart';
 import 'package:islamic_toolkit_app/view_model/prayer_times_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:islamic_toolkit_app/widgets/build_prayer_time_card.dart';
-import 'package:islamic_toolkit_app/widgets/build_nav_item.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -40,7 +39,6 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar: _buildBottomNavigation(context, ref),
       body: ref
           .watch(prayerTimesProvider)
           .when(
@@ -65,12 +63,11 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
       currentTime: currentTime,
     );
 
-    return Column(
+    return Stack(
       children: [
         Container(
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(62, 180, 137, 1),
-          ),
+          height: MediaQuery.of(context).size.height * 0.70,
+          color: const Color.fromRGBO(62, 180, 137, 1),
           child: SafeArea(
             child: Column(
               children: [
@@ -81,10 +78,42 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
         ),
-        Expanded(
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+            child: Image.asset(
+              "assets/home_images/Ellipse.png",
+              alignment: Alignment.bottomCenter,
+              filterQuality: FilterQuality.high,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+
+        Align(
+          alignment: Alignment.bottomCenter,
           child: Container(
             width: double.infinity,
-            color: Colors.white,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  offset: Offset(0, -2),
+                ),
+              ],
+              image: DecorationImage(
+                image: AssetImage('assets/home_images/islamic.png'),
+                fit: BoxFit.cover,
+                opacity: 0.2,
+              ),
+            ),
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 25),
             child: _buildAdhkarSection(),
           ),
         ),
@@ -193,7 +222,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
           "${prayerTimes.currentTime.hour.toString().padLeft(2, '0')}:${prayerTimes.currentTime.minute.toString().padLeft(2, '0')}",
           style: const TextStyle(
             color: Colors.orange,
-            fontSize: 50,
+            fontSize: 45,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -207,15 +236,16 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget _buildPrayerTimesRow(PrayerTimesModel prayerTimes) {
     return Stack(
+      fit: StackFit.loose,
       children: [
         Row(
           children: [
-            const SizedBox(width: 22),
+            const SizedBox(width: 5),
             SvgPicture.asset(
               'assets/home_images/Vector.svg',
               alignment: Alignment.bottomCenter,
-              fit: BoxFit.cover,
-              width: 300,
+              fit: BoxFit.contain,
+              width: 340,
             ),
           ],
         ),
@@ -228,7 +258,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                 child: PrayerTimeCard(
                   name: 'Fajr',
                   time: prayerTimes.fajr,
-                  icon: Icons.wb_sunny_outlined,
+                  iconPath: 'assets/home_images/fajr.png',
                   isNext: prayerTimes.nextPrayer == 'Fajr',
                 ),
               ),
@@ -236,7 +266,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                 child: PrayerTimeCard(
                   name: 'Zuhr',
                   time: prayerTimes.dhuhr,
-                  icon: Icons.wb_sunny,
+                  iconPath: 'assets/home_images/zuhr.png',
                   isNext: prayerTimes.nextPrayer == 'Zuhr',
                 ),
               ),
@@ -244,7 +274,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                 child: PrayerTimeCard(
                   name: 'Asr',
                   time: prayerTimes.asr,
-                  icon: Icons.wb_cloudy,
+                  iconPath: 'assets/home_images/asr.png',
                   isNext: prayerTimes.nextPrayer == 'Asr',
                 ),
               ),
@@ -252,7 +282,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                 child: PrayerTimeCard(
                   name: 'Maghrib',
                   time: prayerTimes.maghrib,
-                  icon: Icons.wb_twilight,
+                  iconPath: 'assets/home_images/maghrib.png',
                   isNext: prayerTimes.nextPrayer == 'Maghrib',
                 ),
               ),
@@ -260,7 +290,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                 child: PrayerTimeCard(
                   name: 'Isha',
                   time: prayerTimes.isha,
-                  icon: Icons.bedtime,
+                  iconPath: 'assets/home_images/isha.png',
                   isNext: prayerTimes.nextPrayer == 'Isha',
                 ),
               ),
@@ -273,41 +303,48 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget _buildAdhkarSection() {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(9),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        image: DecorationImage(
+          image: AssetImage('assets/home_images/islamic.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      padding: const EdgeInsets.all(16),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(
-            'assets/home_images/adhkar.svg',
-            width: 300,
-            fit: BoxFit.cover,
+          Text(
+            'الأذكار المفضلة',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.green[700],
+            ),
+            textAlign: TextAlign.center,
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNavigation(BuildContext context, WidgetRef ref) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: const BoxDecoration(
-        color: Colors.black45,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4,
-            offset: Offset(0, -2),
+          const SizedBox(height: 12),
+          const Text(
+            ' "لَا إِلَهَ إِلَّا اللَّهُ، وَحْدَهُ لَا شَرِيكَ لَهُ،\nلَهُ الْمُلْكُ، وَلَهُ الْحَمْدُ،\nوَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ"',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              height: 1.4,
+              color: Colors.black87,
+            ),
           ),
-        ],
-      ),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          NavItemWidget(icon: Icons.home, label: "Home", index: 0),
-          NavItemWidget(icon: Icons.explore, label: "Qibla", index: 1),
-          NavItemWidget(icon: Icons.pan_tool, label: "Dua's", index: 2),
-          NavItemWidget(icon: Icons.timer, label: "Counter", index: 3),
-          NavItemWidget(icon: Icons.settings, label: "Settings", index: 4),
+          const SizedBox(height: 10),
+          Text(
+            'يقول ﷺ: أحبُّ الكلام إلى الله أربع: سبحان الله،\n والحمد لله، ولا إله إلا الله، والله أكبر.\n ويقول: الباقيات الصالحات: سبحان الله،\n والحمد لله، ولا إله إلا الله، والله أكبر،\n ولا حول ولا قوة إلا بالله',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 14,
+              height: 1.4,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey[700],
+            ),
+          ),
         ],
       ),
     );

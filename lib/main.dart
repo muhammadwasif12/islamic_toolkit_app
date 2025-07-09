@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:islamic_toolkit_app/views/splash_screen.dart';
-import 'package:islamic_toolkit_app/views/home_screen.dart';
-import 'package:islamic_toolkit_app/views/qibla_screen.dart';
-import 'package:islamic_toolkit_app/views/duas_screen.dart';
-import 'package:islamic_toolkit_app/views/counter_screen.dart';
-import 'package:islamic_toolkit_app/views/settings_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -29,14 +24,6 @@ class MyApp extends StatelessWidget {
       ),
 
       home: const SplashScreen(),
-
-      routes: {
-        '/home': (context) => const HomeScreen(),
-        '/qibla': (context) => const QiblaScreen(),
-        '/duas': (context) => const DuasScreen(),
-        '/counter': (context) => const CounterScreen(),
-        '/settings': (context) => const SettingsScreen(),
-      },
     );
   }
 }

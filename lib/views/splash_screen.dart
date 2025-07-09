@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:islamic_toolkit_app/views/home_screen.dart';
+import 'package:islamic_toolkit_app/views/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,14 +22,11 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
 
-    Future.delayed(
-      const Duration(seconds: 6),
-      () {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-      },
-    );
+    Future.delayed(const Duration(seconds: 6), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const MainScreen()),
+      );
+    });
   }
 
   @override
@@ -47,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
               curve: Curves.easeInOut,
               child: SvgPicture.asset(
                 'assets/splash_images/icon1.svg',
-                width: 150, 
+                width: 150,
                 fit: BoxFit.contain,
               ),
             ),

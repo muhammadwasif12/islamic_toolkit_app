@@ -4,14 +4,14 @@ import 'package:intl/intl.dart';
 class PrayerTimeCard extends StatelessWidget {
   final String name;
   final DateTime time;
-  final IconData icon;
+  final String iconPath;
   final bool isNext;
 
   const PrayerTimeCard({
     super.key,
     required this.name,
     required this.time,
-    required this.icon,
+    required this.iconPath,
     required this.isNext,
   });
 
@@ -35,8 +35,8 @@ class PrayerTimeCard extends StatelessWidget {
             color: isNext ? Colors.orange.withOpacity(0.3) : Colors.white24,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(
-            icon,
+          child: ImageIcon(
+            AssetImage(iconPath),
             color: isNext ? Colors.orange : Colors.white,
             size: 20,
           ),
