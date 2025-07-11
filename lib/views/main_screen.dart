@@ -26,7 +26,8 @@ class MainScreen extends ConsumerWidget {
     ];
 
     final bool hideNavBarForHome =
-        selectedIndex == 0 && prayerTimesAsync.isLoading;
+        selectedIndex == 0 &&
+        (prayerTimesAsync.isLoading || prayerTimesAsync.hasError);
 
     return Scaffold(
       body: IndexedStack(index: selectedIndex, children: screens),
