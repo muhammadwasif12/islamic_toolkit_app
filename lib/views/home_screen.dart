@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
 import '../models/prayer_times_model.dart';
 import 'package:islamic_toolkit_app/view_model/prayer_times_provider.dart';
+import 'package:islamic_toolkit_app/view_model/location_service_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:islamic_toolkit_app/widgets/build_prayer_time_card.dart';
+import 'package:flutter/material.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -44,7 +45,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
           .when(
             data: (prayerTimes) => _buildMainContent(prayerTimes),
             loading: () => _buildLoadingState(),
-            error: (error, stack) => _buildErrorState(error),
+            error: (error, stack) => _buildErrorState(error, ref),
           ),
     );
   }
@@ -66,7 +67,6 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
     return Stack(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.70,
           color: const Color.fromRGBO(62, 180, 137, 1),
           child: SafeArea(
             child: Column(
@@ -78,21 +78,12 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
         ),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-            child: Image.asset(
-              "assets/home_images/Ellipse.png",
-              alignment: Alignment.bottomCenter,
-              filterQuality: FilterQuality.high,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
 
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
+            height: MediaQuery.of(context).size.height * 0.43,
+
             width: double.infinity,
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -113,7 +104,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                 opacity: 0.2,
               ),
             ),
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 25),
+            padding: const EdgeInsets.fromLTRB(16, 10, 16, 25),
             child: _buildAdhkarSection(),
           ),
         ),
@@ -142,7 +133,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildErrorState(Object error) {
+  Widget _buildErrorState(Object error, WidgetRef ref) {
     return Container(
       decoration: const BoxDecoration(color: Color.fromRGBO(62, 180, 137, 1)),
       child: SafeArea(
@@ -163,9 +154,18 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () => ref.refresh(prayerTimesProvider),
-                child: const Text('Retry'),
+              ElevatedButton.icon(
+                onPressed: () {
+                  ref.invalidate(locationServiceProvider);
+                  ref.invalidate(cityNameProvider);
+                  ref.invalidate(prayerTimesProvider);
+                },
+                icon: const Icon(Icons.refresh),
+                label: const Text('Retry'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.green,
+                ),
               ),
             ],
           ),
@@ -310,20 +310,20 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
           fit: BoxFit.cover,
         ),
       ),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.only(bottom: 7),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             'الأذكار المفضلة',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
               color: Colors.green[700],
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 11),
           const Text(
             ' "لَا إِلَهَ إِلَّا اللَّهُ، وَحْدَهُ لَا شَرِيكَ لَهُ،\nلَهُ الْمُلْكُ، وَلَهُ الْحَمْدُ،\nوَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ"',
             textAlign: TextAlign.center,
@@ -334,7 +334,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
               color: Colors.black87,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 9),
           Text(
             'يقول ﷺ: أحبُّ الكلام إلى الله أربع: سبحان الله،\n والحمد لله، ولا إله إلا الله، والله أكبر.\n ويقول: الباقيات الصالحات: سبحان الله،\n والحمد لله، ولا إله إلا الله، والله أكبر،\n ولا حول ولا قوة إلا بالله',
             textAlign: TextAlign.center,

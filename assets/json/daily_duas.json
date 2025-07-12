@@ -1,0 +1,492 @@
+
+{
+  "Daily Routine": [
+    {
+      "title": "Supplication Before Sleeping",
+      "arabic": "بِاسْمِكَ اللَّهُمَّ أَمُوْتُ وَأَحْيَا",
+      "latin": "bismika, allahumma amuutu wa ahyaa",
+      "translation": "In Your name, O Allah, I die and I live.",
+      "source": "HR. al-Bukhari"
+    },
+    {
+      "title": "Supplication Upon Waking Up",
+      "arabic": "الحَمْدُ للهِ الَّذِي أَحْيَانَا بعْدَ مَا أماتَنَا وإِلَيْهِ النُّشُورُ",
+      "latin": "alhamdulillahilladzi ahyaanaa ba'da maa amaatanaa wa ilaihin nusyuur",
+      "translation": "All praise is for Allah who gives us life after He has caused us to die, and to Him is the resurrection.",
+      "source": "HR. Bukhari: 6327"
+    }
+  ],
+  "Bathroom Etiquette": [
+    {
+      "title": "Supplication Entering the Bathroom",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ",
+      "latin": "allahumma innii a'uudzubika minal khubutsi wal khabaaitsi",
+      "translation": "O Allah, I seek refuge in You from the evil and the wicked.",
+      "source": "HR. al-Bukhari and Muslim"
+    },
+    {
+      "title": "Supplication Leaving the Bathroom",
+      "arabic": "غُفْرَانَكَ",
+      "latin": "ghuf-raanak",
+      "translation": "I ask for Your forgiveness (O Allah).",
+      "source": "HR. at-Tirmidzi"
+    }
+  ],
+  "Eating & Drinking": [
+    {
+      "title": "Supplication Before Eating",
+      "arabic": "بِسْمِ اللَّهِ",
+      "latin": "bismillah",
+      "translation": "In the name of Allah.",
+      "source": "HR. al-Bukari No. 5376 and Muslim No. 2022"
+    },
+    {
+      "title": "Supplication If Forgetting Bismillah at the Beginning of a Meal",
+      "arabic": "بِسْمِ اللَّهِ أَوَّلَهُ وَآخِرَهُ",
+      "latin": "bismillahi awwaluhu wa aakhiruhu",
+      "translation": "In the name of Allah, at its beginning and its end.",
+      "source": "HR. Abu Dawud"
+    },
+    {
+      "title": "Supplication After Eating",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِى أَطْعَمَنِى هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّى وَلاَ قُوَّةٍ",
+      "latin": "alhamdulillaahilladzii ath'amanii haadzaa wa rozaqoniihi min ghoiri haulin minnii wa laa quwwatin",
+      "translation": "All praise is to Allah who has fed me this and provided for me without any power or strength from me.",
+      "source": "Shahih at-Tirmidzi"
+    }
+  ],
+  "Mosque": [
+    {
+      "title": "Supplication Entering the Mosque",
+      "arabic": "اَللَّهُمَّ افْتَحْ لِيْ أَبْوَابَ رَحْمَتِكَ",
+      "latin": "allahummaftah lii abwaaba rahmatika",
+      "translation": "O Allah, open the doors of Your mercy for me.",
+      "source": "HR. Muslim"
+    },
+    {
+      "title": "Supplication Leaving the Mosque",
+      "arabic": "اَللَّهُمَّ إِنِّيْ أَسْأَلُكَ مِنْ فَضْلِكَ",
+      "latin": "allahumma innii as'aluka min fadhlika",
+      "translation": "O Allah, I ask You for Your bounty.",
+      "source": "HR. Muslim No. 713"
+    }
+  ],
+  "Ablution (Wudu)": [
+    {
+      "title": "Supplication Before Performing Ablution",
+      "arabic": "بِسْمِ اللَّهِ",
+      "latin": "bismillah",
+      "translation": "In the name of Allah.",
+      "source": "HR. at-Tirmidzi and al-Baihaqi"
+    },
+    {
+      "title": "Supplication After Performing Ablution",
+      "arabic": "أشْهَدُ أنْ لا إله إِلاَّ اللَّهُ وَحْدَهُ لا شَرِيك لَهُ ، وأشْهَدُ أنَّ مُحَمَّداً عَبْدُهُ وَرَسُولُهُ ، اللَّهُمَّ اجْعَلْنِي مِنَ التَوَّابِينَ ، واجْعَلْني مِنَ المُتَطَهِّرِينَ ، سُبْحانَكَ اللَّهُمَّ وبِحَمْدِكَ ، أشْهَدُ أنْ لا إلهَ إِلاَّ أنْتَ ، أسْتَغْفِرُكَ وأتُوبُ إِلَيْكَ",
+      "latin": "asyhadu an laa ilaaha illa allah wadahu laa syariika lahu, wa asyhadu anna muhammadan 'abduhu wa rasuuluhu. allahummaj 'alni minat tawwaabiina waj 'alnii minal mutathaahiriina. subhaanaka allahumma wa bihamdika asyhadu an laa ilaaha illa anta astaghfiruka wa atuubu ilaika",
+      "translation": "I bear witness that there is no deity except Allah alone, with no partner, and I bear witness that Muhammad is His servant and Messenger. O Allah, make me among those who repent and make me among those who purify themselves. Glory be to You, O Allah, and with Your praise, I bear witness that there is no deity except You. I seek Your forgiveness and repent to You.",
+      "source": "HR. Muslim, at-Tirmidzi and an-Nasa'i"
+    }
+  ],
+  "Home": [
+    {
+      "title": "Supplication Entering the House #1",
+      "arabic": "اَلسَّلَامُ عَلَيْكُمْ",
+      "latin": "assalaamu 'alaykum",
+      "translation": "Peace be upon you.",
+      "source": "HR. at-Tirmidzi"
+    },
+    {
+      "title": "Supplication Entering the House #2",
+      "arabic": "اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَا تُهُ",
+      "latin": "assalaamu 'alaykum warahmatullaahi wabarakaatuh",
+      "translation": "Peace, mercy, and blessings of Allah be upon you.",
+      "source": "HR. at-Tirmidzi"
+    },
+    {
+      "title": "Supplication Leaving the House",
+      "arabic": "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+      "latin": "bismillaah, tawakkaltu 'alallaah, laa haula wa laa quwwata illaa billaah",
+      "translation": "In the name of Allah, I place my trust in Allah. There is no might nor power except with Allah.",
+      "source": "HR. Abu Dawud and at-Tirmidzi"
+    }
+  ],
+  "Travel": [
+    {
+      "title": "Travel Supplication",
+      "arabic": "الله أَكْبَرُ،الله أَكْبَرُ،الله أَكْبَرُ،سُبْحَانَ الَّذِى سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ اللَّهُمَّ إِنَّا نَسْأَلُكَ فِى سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى وَمِنَ الْعَمَلِ مَا تَرْضَى اللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَذَا وَاطْوِ عَنَّا بُعْدَهُ اللَّهُمَّ أَنْتَ الصَّاحِبُ فِى السَّفَرِ وَالْخَلِيفَةُ فِى الأَهْلِ اللَّهُمَّ إِنِّى أَعُوذُ بِكَ مِنْ وَعْثَاءِ السَّفَرِ وَكَآبَةِ الْمَنْظَرِ وَسُوءِ الْمُنْقَلَبِ فِى الْمَالِ وَالأَهْلِ",
+      "latin": "allahu akbar, allahu akbar, allahu akbar. subhaanal ladzi sakh-khara lanaa haadza wa maa kunna lahuu muqriniin wa inna ilaa rabbina lamun qalibuun. allahumma inna nas aluka fii safarina hadzaa al-birra wat taqwa wa minal amali maa tardhaa. allahumma hawwin 'alaina safarana haadza wathwi 'anna bu'dahu. allahumma anta shaahibu fi safar. wal khaliifatu fil ahli. allahumma inni a'uudzubika min wa'tsaa-issafari wa ka-aabatil mandzari wa suuil munqalabi fil maali wal ahli",
+      "translation": "Allah is the Greatest, Allah is the Greatest, Allah is the Greatest. Glory be to Him who has provided this for us, though we could never have had it by our own efforts. Surely to our Lord we are returning. O Allah, we ask You for righteousness and piety in this journey of ours, and for deeds that please You. O Allah, lighten for us the hardship of this journey and quickly bring us to our destination. O Allah, You are our Companion on the journey and the Guardian of our families. O Allah, I seek refuge in You from the hardship of travel, from a bad return, and from seeing something unpleasant concerning our wealth, family, or children.",
+      "source": "HR. Muslim"
+    },
+    {
+      "title": "Supplication of a Resident for Someone Who is Traveling",
+      "arabic": "أَسْتَوْدِعُ اللَّهَ دِينَكَ وَأَمَانَتَكَ وَخَوَاتِيمَ عَمَلِكَ",
+      "latin": "astawdi'ullaha diinaka, wa amaanataka, wa khawaatiima a'maalik",
+      "translation": "I entrust your religion, your trust, and the end of your deeds to Allah.",
+      "source": "HR. Abu Dawud: 2601"
+    }
+  ],
+  "Clothing": [
+    {
+      "title": "Supplication When Wearing New Clothes",
+      "arabic": "اللَّهُمَّ لَكَ الْحَمْدُ أَنْتَ كَسَوْتَنِيهِ أَسْأَلُكَ مِنْ خَيْرِهِ وَخَيْرِ مَا صُنِعَ لَهُ وَأَعُوذُ بِكَ مِنْ شَرِّهِ وَشَرِّ مَا صُنِعَ لَهُ",
+      "latin": "allahumma lakal hamdu anta kasawtaniihi. as-aluka min khoirihi wa khoiri maa shuni'a lah, wa a'udzu bika min syarrihi wa syarri maa shuni'a lah",
+      "translation": "O Allah, to You is all praise. You have clothed me with this. I ask You for its goodness and the goodness for which it was made, and I seek refuge in You from its evil and the evil for which it was made.",
+      "source": "HR. Ahmad, Abu Dawud, at-Tirmidzi and Al-Hakim"
+    },
+    {
+      "title": "Supplication When Wearing Clothes",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِى كَسَانِى هَذَا الثَّوْبَ وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّى وَلاَ قُوَّةٍ",
+      "latin": "alhamdu lillaahil ladzii kasaanii haadzaa wa rozaqoniihi min ghoiri hawlim minni wa laa quwwatin",
+      "translation": "Praise be to Allah who has clothed me with this garment and provided it for me without any power or strength from me.",
+      "source": "HR. all compilers of Sunan books, except Nasa'i"
+    }
+  ],
+  "Weather": [
+    {
+      "title": "Supplication When it Rains",
+      "arabic": "اللَّهُمَّ صَيِّبًا نَافِعًا",
+      "latin": "allahumma shayyiban naafi'aa",
+      "translation": "O Allah, make it a beneficial rain.",
+      "source": "HR. al-Bukhari No. 1032"
+    },
+    {
+      "title": "Supplication During Heavy Rain",
+      "arabic": "اللَّهُمَّ حَوَالَيْنَا وَلاَ عَلَيْنَا ، اللَّهُمَّ عَلَى الآكَامِ وَالظِّرَابِ وَبُطُونِ الأَوْدِيَةِ وَمَنَابِتِ الشَّجَرِ",
+      "latin": "allahumma haawalaina wa laa 'alaina. allahumma 'alal aakami wal jibaali, wazh zhiroobi, wa buthunil awdiyati, wa manaabitisy syajari",
+      "translation": "O Allah, (let the rain fall) around us, not on us. O Allah, (let it fall) on the hills, mountains, small mountains, valleys, and places where trees grow.",
+      "source": "HR. al-Bukhari No. 1014"
+    }
+  ],
+  "Forgiveness": [
+    {
+      "title": "The Best Supplication for Seeking Forgiveness (Sayyid al-Istighfar)",
+      "arabic": "اَللَّهُمَّ أَنْتَ رَبِّيْ ، لَا إِلٰـهَ إِلاَّ أَنْتَ خَلَقْتَنِيْ وَأَنَا عَبْدُكَ ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ ، أَعُوْذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ ، أَبُوْءُ لَكَ بِنِعْمتِكَ عَلَيَّ ، وَأَبُوْءُ بِذَنْبِيْ فَاغْفِرْ لِيْ ، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ",
+      "latin": "allahumma anta rabbii laa ilaaha illaa anta khalaqtanii wa anna 'abduka wa anaa 'alaa 'ahdika wa wa'dika mastatha'tu a'uudzu bika min syarri maa shana'tu abuu u laka bini' matika 'alayya wa abuu-u bidzanbii faghfir lii fa innahu laa yaghfirudz dzunuuba illa anta",
+      "translation": "O Allah, You are my Lord. There is no deity worthy of worship except You. You created me, and I am Your servant. I abide to Your covenant and promise as best I can. I seek refuge in You from the evil of what I have done. I acknowledge Your blessings upon me, and I acknowledge my sin. So forgive me, for none can forgive sins except You.",
+      "source": "HR. al-Bukhari No. 6306, 6323, Ahmad IV/122-125, an-Nasa'i VIII/279-280"
+    }
+  ],
+  "Difficult Situations": [
+    {
+      "title": "Supplication for Ease in All Matters",
+      "arabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
+      "latin": "allahumma laa sahla illa maa ja'altahu sahlaa, wa anta taj'alul hazna idza syi'ta sahlaa",
+      "translation": "O Allah, there is no ease except in that which You make easy, and You make the difficult easy if You wish.",
+      "source": "HR. Ibn Hibban"
+    },
+    {
+      "title": "Supplication When Afflicted by Calamity",
+      "arabic": "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ اللَّهُمَّ أْجُرْنِى فِى مُصِيبَتِى وَأَخْلِفْ لِى خَيْرًا مِنْهَا",
+      "latin": "inna lillahi wa inna ilaihi rooj'un. allahumma'jurnii fii mushibatii wa akhlif lii khoiron minhaa",
+      "translation": "Indeed we belong to Allah, and indeed to Him we will return. O Allah, reward me for my affliction and replace it with something better.",
+      "source": "HR. Muslim"
+    }
+  ],
+  "Financial": [
+    {
+      "title": "Supplication When in Debt",
+      "arabic": "اللَّهُمَّ اكْفِنِى بِحَلاَلِكَ عَنْ حَرَامِكَ وَأَغْنِنِى بِفَضْلِكَ عَمَّنْ سِوَاكَ",
+      "latin": "allahumak-finii bi halaalika 'an haroomik, wa agh-niniy bi fadhlika 'amman siwaak",
+      "translation": "O Allah, suffice me with what is lawful and keep me away from what is unlawful, and enrich me with Your bounty so I do not depend on anyone besides You.",
+      "source": "HR. at-Tirmidzi No. 2563"
+    }
+  ],
+  "Protection": [
+    {
+      "title": "Prayer for Protection from Satan",
+      "arabic": "رَبِّ أَعُوْذُ بِكَ مِنْ هَمَزَاتِ الشَّيَاطِيْنِ وَأَعُوْذُ بِكَ رَبِّ أَنْ يَحْضُرُوْنِ",
+      "latin": "rabbi a'uudzu bika min hamazaatisy-syayaathiin wa a'uudzu bika rabbi ay yahdhuruun",
+      "translation": "My Lord, I seek refuge in You from the whispers of Satan, and I seek refuge in You, my Lord, from their presence around me.",
+      "source": "QS. Al-Mu'minun: 97-98"
+    }
+  ],
+  "Parents": [
+    {
+      "title": "Prayer for Forgiveness for Parents",
+      "arabic": "رَبَّنَا ٱغْفِرْ لِى وَلِوَٰلِدَىَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ ٱلْحِسَابُ",
+      "latin": "rabbanagfir lii wa liwaalidayya wa lil-mu'miniina yauma yaquumul-hiisaab",
+      "translation": "Our Lord, forgive me and my parents and all the believers on the Day the account is established.",
+      "source": "QS. Ibrahim: 41"
+    }
+  ],
+  
+  "General Blessings": [
+    {
+      "title": "Dua Seeking Good In This World And In The Hereafter",
+      "arabic": "رَبَّنَا آَتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآَخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+      "latin": "rabbana atina fi'd-dunya hasanatan wa fi'l-akhirati hasanatan wa qina 'adhaban-nar",
+      "translation": "Our Lord! Give us good in this world that and give us good in the Hereafter, and save us from the torment of the hell fire.",
+      "source": "QS. Al-Baqarah: 201, al-Bukhari: 6389, HR. Muslim: 2690"
+    }
+  ],
+  "Heart & Faith": [
+    {
+      "title": "Dua To Make Heart Firm Upon Deen #1",
+      "arabic": "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِى عَلَى دِينِكَ",
+      "latin": "ya muqallibal-qulubi thabbit qalbi 'ala deenika",
+      "translation": "O Changer of the hearts, make my heart firm upon Your religion.",
+      "source": "HR. at-Tirmidzi, No. 3522 and Ahmad, 6: 315"
+    },
+    {
+      "title": "Dua To Make Heart Firm Upon Deen #2",
+      "arabic": "اللَّهُمَّ مُصَرِّفَ الْقُلُوبِ صَرِّفْ قُلُوبَنَا عَلَى طَاعَتِكَ",
+      "latin": "allahumma musarrif al-qulubi sarrif qulubana 'ala ta'atik",
+      "translation": "O Allah! Controller of the hearts, direct our hearts to Your obedience.",
+      "source": "HR. Muslim No. 2654"
+    },
+    {
+      "title": "Dua To Make Heart Firm Upon Deen #3",
+      "arabic": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا",
+      "latin": "rabbana la tuzigh qulubana ba'da idh hadaytana",
+      "translation": "O our Lord, do not make our hearts incline to error after You have guided us.",
+      "source": "QS. Ali Imran: 8"
+    }
+  ],
+  "Protection & Refuge": [
+    {
+      "title": "Dua To Seek Refuge Against The Loss Of Pleasure",
+      "arabic": "اللَّهُمَّ إِنِّى أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ وَتَحَوُّلِ عَافِيَتِكَ وَفُجَاءَةِ نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ",
+      "latin": "allahumma inni a'oodhu bika min zawali ni'matika wa tahawwuli 'afiyatika wa fujaa'ati niqmatika wa jami'i sakhatika",
+      "translation": "O Allah, I seek refuge in You from the loss of the pleasures that You have bestowed, from changes in the health that You have bestowed, from Your sudden torment, and from all Your wrath.",
+      "source": "HR. Muslim No. 2739"
+    },
+    {
+      "title": "Dua To Resist Affliction",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوْذُ بِكَ مِنْ جَهْدِ البَلاَءِ ، وَدَرَكِ الشَّقَاءِ ، وَسُوءِ القَضَاءِ ، وَشَمَاتَةِ الأَعْدَاء",
+      "latin": "allahumma inni a'oodhu bika min jahdil-bala'i, wa darakish-shaqaa'i, wa su'il-qadaa'i, wa shamataatil-a'daa",
+      "translation": "Seek refuge in God from severe calamity, being overtaken by misery, evil destiny, and the triumphant mockery of enemies.",
+      "source": "HR. al-Bukhari: 6616, Muslim: 2707"
+    }
+  ],
+  "Difficulties & Hardships": [
+    {
+      "title": "Dua To Be Released From Debt, Anxiety, Weakness, Laziness, Fear, And Pressure from Others",
+      "arabic": "اَللّٰهُمَّ إِنِّى أَعُوْذُبِكَ مِنَ الْهَمِّ وَالْحَزْنِ وَأَعُوْذُبِكَ مِنَ الْعَجْزِ وَالْكَسَلِ وَأَعُوْذُبِكَ مِنَ الْجُبْنِ وَالْبُخْلِ وَأَعُوْذُبِكَ مِنْ غَلَبَتِ الدَّيْنِ وَقَهْرِ الرجال",
+      "latin": "allahumma inni a'oodhu bika minal-hammi wal-huzni wa a'oodhu bika minal-'ajzi wal-kasali wa a'oodhu bika minal-jubni wal-bukhli wa a'oodhu bika min ghalabatid-dayni wa qahrir-rijal",
+      "translation": "O Allah, I seek refuge in Thee from care and grief, I seek refuge in Thee from incapacity and slackness, I seek refuge in Thee from cowardice and niggardliness, and I seek in Thee from being overcome by debt and being put in subjection by men.",
+      "source": "HR. Abu Dawud No. 1555"
+    }
+  ],
+  "Good News & Gratitude": [
+    {
+      "title": "Dua When Getting Good News",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِى بِنِعْمَتِهِ تَتِمُّ الصَّالِحَاتُ",
+      "latin": "alhamdu lillahi alladhi bini'matihi tattimmu assalihat",
+      "translation": "Praise be to Allah, by whose grace goodness is perfected.",
+      "source": "HR. Ibnu Majah in the Sunnan, No. 3803 and al-Hakim in al-Mustadrak (1/499)"
+    }
+  ],
+  "Morning & Evening Adhkar": [
+    {
+      "title": "Upon Entering The Morning by Asking for Protection from Allah",
+      "arabic": "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَـهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرُ. رَبِّ أَسْأَلُكَ خَيْرَ مَا فِيْ هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوْذُ بِكَ مِنْ شَرِّ مَا فِيْ هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوْذُ بِكَ مِنَ الْكَسَلِ وَسُوْءِ الْكِبَرِ، رَبِّ أَعُوْذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ",
+      "latin": "asbahna wa-asbaha al-mulku lillahi, wal-hamdu lillahi, la ilaha illa allah wahdahu la sharika lahu, lahu al-mulku wa lahu al-hamdu wa huwa 'ala kulli shay'in qadir. rabbi as'aluka khayra ma fi hadha al-yawm wa khayra ma ba'dahu, wa a'udhu bika min sharri ma fi hadha al-yawm wa sharri ma ba'dahu. rabbi a'udhu bika mina al-kasali wa su'il-kibar. rabbi a'udhu bika min 'adabin fin-nar wa 'adabin fil-qabr",
+      "translation": "We have entered the morning time and the kingdom belongs to Allah. There is no god who has the right to be worshiped properly except Allah almighty, there is no partner for Him. For Him is the kingdom and praise is for Him. He- is the Almighty over all things. O Lord, I ask You for the good of this day and the good after it. I seek refuge in You from the evil of this day and the evil after it. O Lord, I seek refuge in You from torments of Hell and the torments of the grave.",
+      "source": "HR. Muslim No. 2723 (75), Abu Dawud No. 5071, and at-Tirmidzi 3390"
+    },
+    {
+      "title": "Upon Entering The Morning with The Grace of Allah",
+      "arabic": "اَللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوْتُ وَإِلَيْكَ النُّشُوْرُ",
+      "latin": "allahumma bika asbahna, wa bika amsayna, wa bika nahya, wa bika namutu wa ilayka an-nushoor",
+      "translation": "O Allah, with Your grace and help we enter the morning, and with Your grace and help we enter the evening. By Your grace and will we live and by Your grace and will we die. And to You is the resurrection (for all creatures).",
+      "source": "HR. al-Bukhari in al-Abadul Mufrad No. 1199, at-Tirmidzi No. 3391"
+    },
+    {
+      "title": "Entering The Morning Upon The Natural Religion of Islam",
+      "arabic": "أَصْبَحْنَا عَلَى فِطْرَةِ اْلإِسْلاَمِ وَعَلَى كَلِمَةِ اْلإِخْلاَصِ، وَعَلَى دِيْنِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِيْنَا إِبْرَاهِيْمَ، حَنِيْفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِيْنَ",
+      "latin": "asbahnā 'alā fiṭraṭi al-Islāmi wa 'alā kalimati al-iKhlāṣi, wa 'alā dīni nabīninā muḥammadin ṣallā allāhu 'alayhi wa sallam, wa 'alā millati abīnā ibrāhīma, ḥanīfan musliman wa mā kāna min al-mushrikīn",
+      "translation": "In the morning we are above the nature of the Islamic religion, sincere sentences, the religion of our Prophet Muhammad shallallahu 'alaihi wa sallam and the religion of our father, Ibrahim, who stands on the straight path, is Muslim and is not classified as polytheists.",
+      "source": "HR. Ahmad III/406, 407, ad-Darimi II/292"
+    }
+  ],
+  "Protection ": [
+    {
+      "title": "Ayatul Kursi",
+      "arabic": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ ۚ لَا تَأْخُذُهُۥ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُۥ مَا فِى ٱلسَّمَٰوَٰتِ وَمَا فِى ٱلْأَرْضِ ۗ مَن ذَا ٱلَّذِى يَشْفَعُ عِندَهُۥٓ إِلَّا بِإِذْنِهِۦ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَىْءٍ مِّنْ عِلْمِهِۦٓ إِلَّا بِمَا شَآءَ ۚ وَسِعَ كُرْسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضَ ۖ وَلَا يَـُٔودُهُۥ حِفْظُهُمَا ۚ وَهُوَ ٱلْعَلِىُّ ٱلْعَظِيمُ",
+      "latin": "allahu la ilaha illa huwa, al-hayyul-qayyum. la ta'khudhuhu sinatun wa la nawm. lahu ma fis-samawati wa ma fil-ard. man dhal-ladhi yashfa'u 'indahu illa bi-idhnihi. ya'lamu ma bayna aydihim wa ma khalfahum. wa la yuhiytuna bishay'in min 'ilmihi illa bima shaa'. wa si'a kursiyyuhu as-samawati wal-ard. wa la ya'udu-hu hifdhuhuma. wa huwa al-'aliyyul-'azim",
+      "translation": "Allah - there is no deity except Him, the Ever-Living, the Sustainer of [all] existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is [presently] before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most Hight, the Most Great.",
+      "source": "HR. at-Tirmidzi: 2879"
+    },
+    {
+      "title": "Al-Ikhlas",
+      "arabic": "قُلْ هُوَ ٱللَّهُ أَحَدٌ (1) ٱللَّهُ ٱلصَّمَدُ (2) لَمْ يَلِدْ وَلَمْ يُولَدْ (3) وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ (4)",
+      "latin": "qul huwa allahu ahad (1) allahu samad (2) lam yalid wa lam yulad (3) wa lam yakun lahu kufuwan ahad (4)",
+      "translation": "Say, O Prophet, He is Allah - One and Indivisible (1) Allah - the Sustainer needed by all (2) He has never had offspring, nor was He born (3) And there is none comparable to Him (4).",
+      "source": "HR. Abu Dawud No. 4241"
+    },
+    {
+      "title": "Al-Falaq",
+      "arabic": "قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ (1) مِن شَرِّ مَا خَلَقَ (2) وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ (3) وَمِن شَرِّ ٱلنَّفَّٰثَٰتِ فِى ٱلْعُقَدِ (4) وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ (5)",
+      "latin": "qul a'udhu birabbil-falaq (1) min sharri ma khalaq (2) wa min sharri ghaasiqin idha waqab (3) wa min sharri naffathati fil-'uqad (4) wa min sharri hasidin idha hasad (5)",
+      "translation": "Say, O Prophet, I seek refuge in the Lord of the daybreak (1) from the evil of whatever He has created (2) and from the evil of the night when it grows dark (3) and from the evil of those ˹witches casting spells by˺ blowing onto knots (4) and from the evil of an envier when they envy (5)",
+      "source": "HR. Abu Dawud No. 4241"
+    },
+    {
+      "title": "An-Naas",
+      "arabic": "قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ (1) مَلِكِ ٱلنَّاسِ (2) إِلَٰهِ ٱلنَّاسِ (3) مِن شَرِّ ٱلْوَسْوَاسِ ٱلْخَنَّاسِ (4) ٱلَّذِى يُوَسْوِسُ فِى صُدُورِ ٱلنَّاسِ (5) مِنَ ٱلْجِنَّةِ وَٱلنَّاسِ (6)",
+      "latin": "qul a'udhu birabbin-naas (1) malikin-naas (2) ilahin-naas (3) min sharri al-waswasi al-khannas (4) alladhi yuwaswisu fi sudoorin-naas (5) mina al-jinnati wan-naas (6)",
+      "translation": "Say, O Prophet, I seek refuge in the Lord of humankind (1) the Master of humankind (2) the God of humankind (3) from the evil of the lurking whisperer (4) who whispers into the hearts of humankind (5) from among jinn and humankind (6)",
+      "source": "HR. Abu Dawud No. 4241"
+    },
+    {
+      "title": "Dua for Salvation in The World and Hereafter",
+      "arabic": "اَللَّهُمَّ إِنِّيْ أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَاْلآخِرَةِ، اَللَّهُمَّ إِنِّيْ أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِيْنِيْ وَدُنْيَايَ وَأَهْلِيْ وَمَالِيْ اللَّهُمَّ اسْتُرْ عَوْرَاتِى وَآمِنْ رَوْعَاتِى. اَللَّهُمَّ احْفَظْنِيْ مِنْ بَيْنِ يَدَيَّ، وَمِنْ خَلْفِيْ، وَعَنْ يَمِيْنِيْ وَعَنْ شِمَالِيْ، وَمِنْ فَوْقِيْ، وَأَعُوْذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِيْ",
+      "latin": "allahumma inni as'aluka al-'afwa wal-'afiyata fi'd-dunya wa'l-akhirah. allahumma inni as'aluka al-'afwa wal-'afiyata fi deeni wa dunyaya wa ahli wa mali. allahumma istur 'awraati wa amin raw'aaati. allahumma ihfazni min bayni yadayya, wa min khalfi, wa 'an yameeni wa 'an shimaali, wa min fawqi. wa a'udhu bi 'azamatika an ughtala min tahti",
+      "translation": "O Allah, I really ask for goodness and safety in this world and the hereafter. O Allah, I really ask for goodness and safety in religion, the world, my family and wealth. O Allah, cover my nakedness (disgrace and something that is not suitable for people to see) and calm me save me from fear. O Allah, protect me from in front, behind, right, left and above me. I seek protection from Your greatness, so that I will not be grabbed from under me (I seek protection from being immersed in the earth).",
+      "source": "HR. al-Bukhari in al-Abadul Mufrad No. 1200, Abu Dawud No. 5074"
+    },
+    {
+      "title": "Dua for Protection from Shaytan Whispers",
+      "arabic": "اَللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَاْلأَرْضِ، رَبَّ كُلِّ شَيْءٍ وَمَلِيْكَهُ، أَشْهَدُ أَنْ لاَ إِلَـهَ إِلاَّ أَنْتَ، أَعُوْذُ بِكَ مِنْ شَرِّ نَفْسِيْ، وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِيْ سُوْءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ",
+      "latin": "allahumma 'alimal-ghaybi wash-shahadati, fatiras-samawati wal-ard, rabbakulli shayin wa malikahu. ashhadu alla ilaha illa anta, a'udhu bika min sharri nafsi, wa min sharri ash-shaytani wa shirkih. wa an aqtarifa 'ala nafsi su'an aw ajurrahu ila muslim",
+      "translation": "O Allah, Who knows the unseen and the real. O Lord, Creator of the heavens and the earth, Lord of all things and Who reigns over them. I testify that there is no god who has the right to be worshiped properly except You. I seek refuge in You from the evil of myself, satan and his invitation to associate partners with Allah, (I seek refuge in You) from doing evil to me or pushing a Muslim against him.",
+      "source": "HR. al-Bukhari in al-Abadul Mufrad No. 1202, at-Tirmidzi No. 3392"
+    },
+    {
+      "title": "Asking for Protection from All Harms",
+      "arabic": "بِسْمِ اللَّهِ الَّذِى لاَ يَضُرُّ مَعَ اسْمِهِ شَىْءٌ فِى الأَرْضِ وَلاَ فِى السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
+      "latin": "bismillahi alladhi la yadurru ma'asmihi shay'un fi'l-ard wa la fi's-sama'i, wa huwa as-sami'u al-'aleem",
+      "translation": "In the name of Allah with Whose name nothing can harm on earth or in heaven, and He is the All-Hearing, All-Knowing.",
+      "source": "HR. at-Tirmidzi No. 3388, Abu Dawud No. 5088"
+    }
+  ],
+  "Forgiveness & Repentance": [
+    {
+      "title": "Sayyid al-Istighfar",
+      "arabic": "اَللَّهُمَّ أَنْتَ رَبِّيْ ، لَا إِلٰـهَ إِلاَّ أَنْتَ خَلَقْتَنِيْ وَأَنَا عَبْدُكَ ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ ، أَعُوْذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ ، أَبُوْءُ لَكَ بِنِعْمتِكَ عَلَيَّ ، وَأَبُوْءُ بِذَنْبِيْ فَاغْفِرْ لِيْ ، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ",
+      "latin": "allahumma anta rabbi, la ilaha illa anta, khalaqtani wa ana 'abduka, wa ana 'ala 'ahdika wa wa'dika mastata'tu. a'udhu bika min sharri ma sana'tu, abu'u laka bini'matika 'alayya, wa abu'u bidhanbi faghfir li, fa innahu la yaghfir adh-dhunuba illa anta",
+      "translation": "O Allahm You are my Lord. There is no god but You. You created me I am your slave I stand firm in my promises and promises to you as much as possible. I seek refuge in You from the evil of my deeds. I acknowledge my sin. So forgive me. Because there is no one who forgives sins except You.",
+      "source": "HR. al-Bukhari No. 6306, 6323, Ahmad IV/122-125"
+    },
+    {
+      "title": "Istighfar 100x a Day",
+      "arabic": "أَسْتَغْفِرُ الله وَأَتُوْبُ إِلَيْهِ",
+      "latin": "astaghfiru Allah wa atubu ilayhi",
+      "translation": "I seek forgiveness from Allah and repent to Him.",
+      "source": "HR. al-Bukhari/Fat-hul Baari XI/101 and Muslim No. 2702"
+    }
+  ],
+  "Health & Well-being": [
+    {
+      "title": "Dua for Protection and Good Health",
+      "arabic": "اَللَّهُمَّ عَافِنِيْ فِيْ بَدَنِيْ ، اَللَّهُمَّ عَافِنِيْ فِيْ سَمْعِيْ ، اَللَّهُمَّ عَافِنِيْ فِيْ بَصَرِيْ ، لَا إِلَـهَ إِلَّا أَنْتَ ، اَللَّهُمَّ إِنِّيْ أَعُوْذُ بِكَ مِنَ الْكُفْرِوَالْفَقْرِ ، وَأَعُوْذُ بِكَ مِنْ عَذَابِ الْقَبْرِ ، لَا إِلَـهَ إِلَّا أَنْتَ",
+      "latin": "allahumma 'afini fi badani, allahumma 'afini fi sam'i, allahumma 'afini fi basari, la ilaha illa anta, allahumma inni a'udhu bika min al-kufri wal-faqr, wa a'udhu bika min 'adhabi al-qabr, la ilaha illa anta",
+      "translation": "O Allah, save my body (from disease and from what I don't want). O Allah, save my hearing (from disease and immorality or from what I don't want). O Allah, save my sight, there is no deity who has the right to be worshiped with righteous except You. O Allah, verily I seek refuge in You from disbelief and neediness. I seek refuge in You from the torment of the grave, there is no deity who has the right to be worshiped properly except You.",
+      "source": "HR. al-Bukhari n Shahiib al-Adabil Mufrad No. 701, Abu Dawud No. 5090"
+    }
+  ],
+  "Faith & Tawheed": [
+    {
+      "title": "Declaration of Pleasure with Allah, Islam, and the Prophet Muhammad shallallahu 'alaihi wa sallam",
+      "arabic": "رَضِيْتُ بِاللهِ رَبًّا، وَبِاْلإِسْلاَمِ دِيْنًا، وَبِمُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا",
+      "latin": "radi'tu billahi rabban, wa bil-Islami deenan, wa bi-muhammadin sallallahu 'alayhi wa sallam nabiyyan",
+      "translation": "I am willing (pleased) Allah as my Rabb (for me and others), Islam as my religion and Muhammad shallallahu 'alaihi wa sallam as my Prophet (sent by Allah).",
+      "source": "HR. Ahmad IV/337, Abu Dawud No. 5072"
+    },
+    {
+      "title": "Tawheed Dhikr",
+      "arabic": "لاَ إِلَـهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرُ",
+      "latin": "la ilaha illallah, wahdahu la sharika lah, lahu al-mulku wa lahu al-hamdu, wa huwa 'ala kulli shay'in qadir",
+      "translation": "There is no God who has the right to be worshiped properly except Allah, the One and Only, He has no partners. For Him is the kingdom and for Him is all praise. And He is Almighty over all things.",
+      "source": "HR al-Bukhari No. 3293 and 6403, Muslim IV/2071 No. 2691 (28)"
+    }
+  ],
+  "Dhikr & Tasbih": [
+    {
+      "title": "Read Tasbih",
+      "arabic": "سُبْحَانَ اللهِ وَبِحَمْدِهِ عَدَدَ خَلْقَهِ وَرِضَى نَفْسِهِ وَزِنَةَ عَرْشِهِ وَمِدَادَ كَلِمَاتِهِ",
+      "latin": "subhanallah wa bihamdihi, 'adada khalqihi wa ridha nafsihi, wazinata 'arshihi, wa midad kalimatihi",
+      "translation": "Glory to Allah, I praise Him as many as the number of His creatures, Glory to Allah according to His pleasure, as pure as the weight of His Throne, and as pure as the ink (which writes) His words.",
+      "source": "HR. Muslim No. 2726. From Juwairiyah binti al-Harits radhiyallahu 'anhuma"
+    },
+    {
+      "title": "Daily Tasbih and Tahmid",
+      "arabic": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+      "latin": "subhanallah wa bihamdihi",
+      "translation": "Glory be to Allah, I praise Him.",
+      "source": "HR. Muslim No. 2691 and No. 2692, from Abu Hurairah radhiyallahu 'anhu"
+    }
+  ],
+  "Supplications for Guidance": [
+    {
+      "title": "Asking Allah for Guidance",
+      "arabic": "يَا حَيُّ يَا قَيُّوْمُ بِرَحْمَتِكَ أَسْتَغِيْثُ، وَأَصْلِحْ لِيْ شَأْنِيْ كُلَّهُ وَلاَ تَكِلْنِيْ إِلَى نَفْسِيْ طَرْفَةَ عَيْنٍ أَبَدًا",
+      "latin": "ya hayyu ya qayyum, bi rahmatika astagheeth. wa aslih li shani kullahu wa la takilni ila nafsi tarfata 'aynin abadan",
+      "translation": "O Rabb of the Most Living, O Rabb of the Most Self-sufficient (does not need anything) with Your grace I ask for help, fix all my affairs and do not leave (my affairs) to myself even if only for the twinkling of an eye (without getting help from You).",
+      "source": "HR. an-Nasa'i in 'Amalul Yaum wal Lailah No. 575, and al-Hakim 1/545"
+    },
+    {
+      "title": "Dua for Useful Knowledge, Good Sustenance, and Accepted Deeds",
+      "arabic": "اللَّهُمَّ إِنِّى أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلاً مُتَقَبَّلاً",
+      "latin": "allahumma inni as'aluka 'ilman nafi'an, wa rizqan tayyiban, wa 'amalan mutaqabbalan",
+      "translation": "O Allah, I really ask You for knowledge that is beneficial, sustenance that is lawful, and deeds that are accepted.",
+      "source": "HR. Ibnu Majah No. 925, Shahiih Ibni Majah 1/152 No. 753"
+    }
+  ],
+  "Blessings": [
+    {
+      "title": "Dua Seeking Good In This World And In The Hereafter",
+      "arabic": "رَبَّنَا آَتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآَخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+      "latin": "rabbana atina fi'd-dunya hasanatan wa fi'l-akhirati hasanatan wa qina 'adhaban-nar",
+      "translation": "Our Lord! Give us good in this world that and give us good in the Hereafter, and save us from the torment of the hell fire.",
+      "source": "QS. Al-Baqarah: 201, al-Bukhari: 6389, HR. Muslim: 2690"
+    }
+  ],
+  "Faith": [
+    {
+      "title": "Dua To Make Heart Firm Upon Deen #1",
+      "arabic": "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِى عَلَى دِينِكَ",
+      "latin": "ya muqallibal-qulubi thabbit qalbi 'ala deenika",
+      "translation": "O Changer of the hearts, make my heart firm upon Your religion.",
+      "source": "HR. at-Tirmidzi, No. 3522 and Ahmad, 6: 315"
+    },
+    {
+      "title": "Dua To Make Heart Firm Upon Deen #2",
+      "arabic": "اللَّهُمَّ مُصَرِّفَ الْقُلُوبِ صَرِّفْ قُلُوبَنَا عَلَى طَاعَتِكَ",
+      "latin": "allahumma musarrif al-qulubi sarrif qulubana 'ala ta'atik",
+      "translation": "O Allah! Controller of the hearts, direct our hearts to Your obedience.",
+      "source": "HR. Muslim No. 2654"
+    },
+    {
+      "title": "Dua To Make Heart Firm Upon Deen #3",
+      "arabic": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا",
+      "latin": "rabbana la tuzigh qulubana ba'da idh hadaytana",
+      "translation": "O our Lord, do not make our hearts incline to error after You have guided us.",
+      "source": "QS. Ali Imran: 8"
+    }
+  ],
+  " Problems": [
+    {
+      "title": "Dua To Seek Refuge Against The Loss Of Pleasure",
+      "arabic": "اللَّهُمَّ إِنِّى أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ وَتَحَوُّلِ عَافِيَتِكَ وَفُجَاءَةِ نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ",
+      "latin": "allahumma inni a'oodhu bika min zawali ni'matika wa tahawwuli 'afiyatika wa fujaa'ati niqmatika wa jami'i sakhatika",
+      "translation": "O Allah, I seek refuge in You from the loss of the pleasures that You have bestowed, from changes in the health that You have bestowed, from Your sudden torment, and from all Your wrath.",
+      "source": "HR. Muslim No. 2739"
+    },
+    {
+      "title": "Dua To Resist Affliction",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوْذُ بِكَ مِنْ جَهْدِ البَلاَءِ ، وَدَرَكِ الشَّقَاءِ ، وَسُوءِ القَضَاءِ ، وَشَمَاتَةِ الأَعْدَاء",
+      "latin": "allahumma inni a'oodhu bika min jahdil-bala'i, wa darakish-shaqaa'i, wa su'il-qadaa'i, wa shamataatil-a'daa",
+      "translation": "Seek refuge in God from severe calamity, being overtaken by misery, evil destiny, and the triumphant mockery of enemies.",
+      "source": "HR. al-Bukhari: 6616, Muslim: 2707"
+    },
+    {
+      "title": "Dua To Be Released From Debt, Anxiety, Weakness, Laziness, Fear, And Pressure from Others",
+      "arabic": "اَللّٰهُمَّ إِنِّى أَعُوْذُبِكَ مِنَ الْهَمِّ وَالْحَزْنِ وَأَعُوْذُبِكَ مِنَ الْعَجْزِ وَالْكَسَلِ وَأَعُوْذُبِكَ مِنَ الْجُبْنِ وَالْبُخْلِ وَأَعُوْذُبِكَ مِنْ غَلَبَتِ الدَّيْنِ وَقَهْرِ الرجال",
+      "latin": "allahumma inni a'oodhu bika minal-hammi wal-huzni wa a'oodhu bika minal-'ajzi wal-kasali wa a'oodhu bika minal-jubni wal-bukhli wa a'oodhu bika min ghalabatid-dayni wa qahrir-rijal",
+      "translation": "O Allah, I seek refuge in Thee from care and grief, I seek refuge in Thee from incapacity and slackness, I seek refuge in Thee from cowardice and niggardliness, and I seek in Thee from being overcome by debt and being put in subjection by men.",
+      "source": "HR. Abu Dawud No. 1555"
+    }
+  ],
+  "Good News": [
+    {
+      "title": "Dua When Getting Good News",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِى بِنِعْمَتِهِ تَتِمُّ الصَّالِحَاتُ",
+      "latin": "alhamdu lillahi alladhi bini'matihi tattimmu assalihat",
+      "translation": "Praise be to Allah, by whose grace goodness is perfected.",
+      "source": "HR. Ibnu Majah in the Sunnan, No. 3803 and al-Hakim in al-Mustadrak (1/499)"
+    }
+  ]
+}
+

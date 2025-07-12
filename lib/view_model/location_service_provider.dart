@@ -3,9 +3,14 @@ import 'package:geolocator/geolocator.dart';
 
 final locationServiceProvider = FutureProvider<Position>((ref) async {
   bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
   if (!serviceEnabled) {
     await Geolocator.openLocationSettings();
-    throw Exception('Location services are disabled.');
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      throw Exception('Location services are disabled.');
+    }
   }
 
   LocationPermission permission = await Geolocator.checkPermission();

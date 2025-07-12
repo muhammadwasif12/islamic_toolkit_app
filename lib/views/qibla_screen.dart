@@ -19,8 +19,8 @@ class QiblaScreen extends StatelessWidget {
         ),
         shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(50),
-            bottomLeft: Radius.circular(50),
+            bottomRight: Radius.circular(60),
+            bottomLeft: Radius.circular(60),
           ),
         ),
       ),
