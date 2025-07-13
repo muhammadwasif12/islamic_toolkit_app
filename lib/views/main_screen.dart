@@ -22,7 +22,7 @@ class MainScreen extends ConsumerWidget {
       QiblaScreen(),
       DuasScreen(),
       CounterScreen(),
-      SettingsScreen(),
+      //SettingsScreen(),
     ];
 
     final bool hideNavBarForHome =
