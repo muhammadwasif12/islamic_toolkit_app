@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_toolkit_app/models/dua_category_model.dart';
 import 'package:islamic_toolkit_app/views/dua_detail_screen.dart';
+import '../widgets/custom_app_bar.dart';
 
 class CategoryDuaListScreen extends StatelessWidget {
   final DuaCategory category;
@@ -13,25 +14,8 @@ class CategoryDuaListScreen extends StatelessWidget {
     final duas = category.duas;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(62, 180, 137, 1),
-        centerTitle: true,
-        title: Text(
-          category.name,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        iconTheme: const IconThemeData(color: Colors.white),
-        shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(60),
-            bottomLeft: Radius.circular(60),
-          ),
-        ),
-      ),
+       appBar:  CustomAppBar(title:category.name),
+      
       body: ListView.builder(
         itemCount: duas.length,
         padding: const EdgeInsets.all(16),

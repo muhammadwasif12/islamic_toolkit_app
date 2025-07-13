@@ -7,6 +7,7 @@ import 'package:islamic_toolkit_app/views/category_dua_list_screen.dart';
 import 'package:islamic_toolkit_app/models/dua_category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:islamic_toolkit_app/widgets/dua_tab_selector.dart';
+import '../widgets/custom_app_bar.dart';
 
 class DuasScreen extends ConsumerWidget {
   const DuasScreen({super.key});
@@ -18,24 +19,7 @@ class DuasScreen extends ConsumerWidget {
     final favorites = ref.watch(favoriteDuasProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(62, 180, 137, 1),
-        centerTitle: true,
-        title: const Text(
-          "All Dua's",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(60),
-            bottomLeft: Radius.circular(60),
-          ),
-        ),
-      ),
+      appBar: const CustomAppBar(title: "All Dua's"),
       backgroundColor: const Color(0xffFDFCF7),
 
       body: SafeArea(

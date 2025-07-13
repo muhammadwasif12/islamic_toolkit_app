@@ -22,7 +22,7 @@ class MainScreen extends ConsumerWidget {
       QiblaScreen(),
       DuasScreen(),
       CounterScreen(),
-      //SettingsScreen(),
+      SettingsScreen(),
     ];
 
     final bool hideNavBarForHome =
@@ -81,11 +81,7 @@ class MainScreen extends ConsumerWidget {
                       ],
                     ),
                      const SizedBox(height: 14),
-                    // Image.asset(
-                    //   "assets/home_images/blackline.png",
-                    //   filterQuality: FilterQuality.high,
-                    //   fit: BoxFit.cover,
-                    // ),
+                   
                   ],
                 ),
               ),

@@ -23,29 +23,22 @@ class PrayerTimeCard extends StatelessWidget {
         Text(
           name,
           style: TextStyle(
-            color: isNext ? Colors.orange : Colors.white,
+            color: isNext ? Colors.amber : Colors.white,
             fontSize: 14,
             fontWeight: isNext ? FontWeight.bold : FontWeight.w500,
           ),
         ),
         const SizedBox(height: 6),
-        Container(
-          padding: const EdgeInsets.all(6),
-          decoration: BoxDecoration(
-            color: isNext ? Colors.orange.withOpacity(0.3) : Colors.white24,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: ImageIcon(
-            AssetImage(iconPath),
-            color: isNext ? Colors.orange : Colors.white,
-            size: 20,
-          ),
+        ImageIcon(
+          AssetImage(iconPath),
+          color: isNext ? Colors.amber : Colors.white,
+          size: 20,
         ),
         const SizedBox(height: 6),
         Text(
           DateFormat('HH:mm').format(time),
           style: TextStyle(
-            color: isNext ? Colors.orange : Colors.white,
+            color: isNext ? Colors.amber : Colors.white,
             fontSize: 12,
             fontWeight: isNext ? FontWeight.bold : FontWeight.normal,
           ),

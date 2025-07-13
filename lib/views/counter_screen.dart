@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:islamic_toolkit_app/view_model/counter_state_provider.dart';
+import '../widgets/custom_app_bar.dart';
 
 class CounterScreen extends ConsumerWidget {
   const CounterScreen({super.key});
@@ -11,24 +12,7 @@ class CounterScreen extends ConsumerWidget {
     final counter = ref.watch(counterProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(62, 180, 137, 1),
-        centerTitle: true,
-        title: const Text(
-          "Tasbeeh Counter",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(60),
-            bottomLeft: Radius.circular(60),
-          ),
-        ),
-      ),
+       appBar: const CustomAppBar(title: "Tasbeeh Counter"),
       backgroundColor: const Color(0xffFDFCF7),
 
       body: SafeArea(

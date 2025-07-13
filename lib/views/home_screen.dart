@@ -188,23 +188,23 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                   prayerTimes.hijriDate,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   prayerTimes.location,
-                  style: const TextStyle(color: Colors.white70, fontSize: 16),
+                  style: const TextStyle(color: Colors.white70, fontSize: 14),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
           ),
-          const Icon(
-            Icons.notifications_outlined,
+          ImageIcon(
+            AssetImage('assets/home_images/bell.png'),
             color: Colors.white,
-            size: 28,
+            size: 25,
           ),
         ],
       ),
@@ -221,14 +221,14 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
         Text(
           "${prayerTimes.currentTime.hour.toString().padLeft(2, '0')}:${prayerTimes.currentTime.minute.toString().padLeft(2, '0')}",
           style: const TextStyle(
-            color: Colors.orange,
-            fontSize: 45,
+            color: Colors.amber,
+            fontSize: 40,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
           "${prayerTimes.nextPrayer} $hours hour $minutes min left",
-          style: const TextStyle(color: Colors.white, fontSize: 15),
+          style: const TextStyle(color: Colors.white, fontSize: 12),
         ),
       ],
     );

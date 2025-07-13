@@ -1,29 +1,12 @@
 import 'package:flutter/material.dart';
-
+import '../widgets/custom_app_bar.dart';
 class QiblaScreen extends StatelessWidget {
   const QiblaScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(62, 180, 137, 1),
-        centerTitle: true,
-        title: const Text(
-          "Qibla Direction",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        shape: const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(60),
-            bottomLeft: Radius.circular(60),
-          ),
-        ),
-      ),
+       appBar: const CustomAppBar(title: "Qibla Direction"),
       backgroundColor: const Color(0xffFDFCF7),
       body: SafeArea(
         child: Column(
