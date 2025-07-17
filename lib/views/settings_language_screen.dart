@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:islamic_toolkit_app/view_model/language_provider.dart';
+import 'package:islamic_toolkit_app/widgets/app_rebuilder.dart';
 
-class LanguageScreen extends StatefulWidget {
+class LanguageScreen extends ConsumerWidget {
   const LanguageScreen({super.key});
 
   @override
-  State<LanguageScreen> createState() => _LanguageScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selected = ref.watch(selectedLanguageProvider);
+    final languages = ["English", "Arabic", "Farsi", "Urdu"];
+    final localeMap = {
+      "English": const Locale('en'),
+      "Arabic": const Locale('ar'),
+      "Farsi": const Locale('fa'),
+      "Urdu": const Locale('ur'),
+    };
 
-class _LanguageScreenState extends State<LanguageScreen> {
-  String selected = "English";
-  final List<String> languages = ["English", "Arabic", "Farsi", "Urdu"];
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(75),
@@ -38,9 +43,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
                   ),
                   onPressed: () => Navigator.pop(context),
                 ),
-                const Text(
-                  "Change Language",
-                  style: TextStyle(
+                Text(
+                  "change_language".tr(),
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
@@ -51,7 +56,6 @@ class _LanguageScreenState extends State<LanguageScreen> {
           ),
         ),
       ),
-
       backgroundColor: const Color(0xffFDFCF7),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
@@ -70,10 +74,16 @@ class _LanguageScreenState extends State<LanguageScreen> {
               itemBuilder: (_, index) {
                 final lang = languages[index];
                 final isSelected = selected == lang;
+
                 return GestureDetector(
-                  onTap: () {
-                    setState(() => selected = lang);
+                  onTap: () async {
+                    ref.read(selectedLanguageProvider.notifier).state = lang;
+                    await context.setLocale(localeMap[lang]!);
+
+                    //  Rebuild the entire app
+                    AppRebuilder.of(context)?.rebuildApp();
                   },
+
                   child: Container(
                     decoration: BoxDecoration(
                       color: isSelected ? Colors.amber : Colors.amber[100],

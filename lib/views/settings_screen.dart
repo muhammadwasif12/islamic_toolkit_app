@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:islamic_toolkit_app/views/settings_language_screen.dart';
 import 'package:islamic_toolkit_app/views/settings_notification_screen.dart';
 import '../widgets/custom_app_bar.dart';
@@ -10,7 +11,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "Settings"),
+      appBar: CustomAppBar(title: 'settings'.tr()),
       backgroundColor: const Color(0xffFDFCF7),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -19,10 +20,10 @@ class SettingsScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             SettingItem(
-              title: 'Choose Language',
+              title: 'choose_language'.tr(),
               onTap: () {
                 Navigator.push(
-                  context, 
+                  context,
                   MaterialPageRoute(
                     builder: (context) => const LanguageScreen(),
                   ),
@@ -33,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
             const SizedBox(height: 16),
 
             SettingItem(
-              title: 'Notifications',
+              title: 'notifications'.tr(),
               onTap: () {
                 Navigator.push(
                   context,
@@ -47,12 +48,12 @@ class SettingsScreen extends StatelessWidget {
             const SizedBox(height: 16),
 
             SettingItem(
-              title: 'Purchase App',
+              title: 'purchase_app'.tr(),
               onTap: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Purchase feature coming soon!"),
-                    backgroundColor: Color.fromRGBO(62, 180, 137, 1),
+                  SnackBar(
+                    content: Text('purchase_feature_coming_soon'.tr()),
+                    backgroundColor: const Color.fromRGBO(62, 180, 137, 1),
                   ),
                 );
               },

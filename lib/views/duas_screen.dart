@@ -1,11 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:islamic_toolkit_app/view_model/duas_category_provider.dart';
 import 'package:islamic_toolkit_app/models/dua_model.dart';
 import 'package:islamic_toolkit_app/views/dua_detail_screen.dart';
 import 'package:islamic_toolkit_app/views/category_dua_list_screen.dart';
 import 'package:islamic_toolkit_app/models/dua_category_model.dart';
-import 'package:flutter/material.dart';
 import 'package:islamic_toolkit_app/widgets/dua_tab_selector.dart';
 import '../widgets/custom_app_bar.dart';
 
@@ -19,16 +20,12 @@ class DuasScreen extends ConsumerWidget {
     final favorites = ref.watch(favoriteDuasProvider);
 
     return Scaffold(
-      appBar: const CustomAppBar(title: "All Dua's"),
+      appBar: CustomAppBar(title: "all_duas".tr()),
       backgroundColor: const Color(0xffFDFCF7),
-
       body: SafeArea(
         child: Column(
           children: [
-            // Tabs
             const DuaTabSelector(),
-
-            // Tab Content
             Expanded(
               child: categoriesAsync.when(
                 data:
@@ -93,7 +90,8 @@ class DuasScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        category.name,
+                        category.name.tr(),
+
                         style: GoogleFonts.roboto(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -101,18 +99,16 @@ class DuasScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.folder_open,
-                            color: const Color.fromRGBO(62, 180, 137, 1),
+                            color: Color.fromRGBO(62, 180, 137, 1),
                             size: 24,
                           ),
                           const SizedBox(width: 5),
-
                           Text(
-                            '${category.subCategoriesCount} sub-categories',
+                            '${category.subCategoriesCount} ${'sub_categories'.tr()}',
                             style: GoogleFonts.roboto(
                               fontSize: 14,
                               color: Colors.grey[600],
@@ -123,7 +119,6 @@ class DuasScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -136,7 +131,7 @@ class DuasScreen extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      'Duas',
+                      'duas'.tr(),
                       style: GoogleFonts.roboto(
                         fontSize: 14,
                         color: Colors.grey[600],
@@ -165,7 +160,7 @@ class DuasScreen extends ConsumerWidget {
             Icon(Icons.favorite_border, size: 64, color: Colors.grey[400]),
             const SizedBox(height: 16),
             Text(
-              'No favorites yet',
+              'no_favorites_yet'.tr(),
               style: GoogleFonts.roboto(fontSize: 18, color: Colors.grey[600]),
             ),
           ],

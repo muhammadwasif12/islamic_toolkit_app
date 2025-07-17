@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_toolkit_app/models/dua_model.dart';
 import 'package:islamic_toolkit_app/view_model/duas_category_provider.dart';
 import 'package:islamic_toolkit_app/widgets/dua_progress_indicator.dart';
+import 'package:easy_localization/easy_localization.dart'; // Make sure this is imported
 
 class DuaDetailScreen extends ConsumerWidget {
   final int currentIndex;
@@ -37,13 +38,13 @@ class DuaDetailScreen extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            //  Progress Bar
+            // Progress Bar
             DuaProgressIndicator(
               currentIndex: currentIndex,
               totalCount: totalCount,
             ),
 
-            //  Dua Content
+            // Dua Content
             Container(
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(20),
@@ -87,9 +88,9 @@ class DuaDetailScreen extends ConsumerWidget {
                         height: 1.8,
                       ),
                       textAlign: TextAlign.right,
-                      textDirection: TextDirection.rtl,
                     ),
                   ),
+
                   const SizedBox(height: 16),
                   Text(
                     dua.latin,
@@ -111,7 +112,7 @@ class DuaDetailScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    'Reference',
+                    'reference'.tr(),
                     style: GoogleFonts.roboto(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -180,8 +181,8 @@ class DuaDetailScreen extends ConsumerWidget {
                 SnackBar(
                   content: Text(
                     isNowFavorite
-                        ? 'Added to favorites'
-                        : 'Removed from favorites',
+                        ? 'add_to_favorites'.tr()
+                        : 'remove_from_favorites'.tr(),
                     style: GoogleFonts.roboto(color: Colors.white),
                   ),
                   backgroundColor:

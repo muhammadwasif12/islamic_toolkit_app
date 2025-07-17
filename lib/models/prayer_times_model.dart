@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class PrayerTimesModel {
   final DateTime fajr;
   final DateTime sunrise;
@@ -22,11 +24,11 @@ class PrayerTimesModel {
   });
 
   Map<String, DateTime> get prayerTimes => {
-    'Fajr': fajr,
-    'Zuhr': dhuhr,
-    'Asr': asr,
-    'Maghrib': maghrib,
-    'Isha': isha,
+    'fajr': fajr,
+    'zuhr': dhuhr,
+    'asr': asr,
+    'maghrib': maghrib,
+    'isha': isha,
   };
 
   String get nextPrayer {
@@ -38,7 +40,7 @@ class PrayerTimesModel {
         return prayer.key;
       }
     }
-    return 'Fajr';
+    return 'fajr';
   }
 
   Duration get timeToNextPrayer {
@@ -58,5 +60,23 @@ class PrayerTimesModel {
       fajr.minute,
     );
     return tomorrowFajr.difference(now);
+  }
+}
+
+String getLocalizedHijriDate(String hijriDate) {
+  // Input format: "19 Muharram, 1447 H"
+  // Split: ["19", "Muharram,", "1447", "H"]
+  try {
+    final parts = hijriDate.split(" ");
+    if (parts.length < 3) return hijriDate;
+
+    final day = parts[0]; // 19
+    String month = parts[1].replaceAll(",", ""); // Muharram
+    final year = parts.sublist(2).join(" "); // "1447 H"
+
+    final localizedMonth = month.toLowerCase().replaceAll("-", "_").tr();
+    return "$day $localizedMonth, $year";
+  } catch (e) {
+    return hijriDate;
   }
 }

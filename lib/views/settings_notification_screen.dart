@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -7,7 +8,7 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(75),
+        preferredSize: const Size.fromHeight(75.0),
         child: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: const Color.fromRGBO(62, 180, 137, 1),
@@ -30,9 +31,9 @@ class NotificationScreen extends StatelessWidget {
                   ),
                   onPressed: () => Navigator.pop(context),
                 ),
-                const Text(
-                  "Notification",
-                  style: TextStyle(
+                Text(
+                  "notification".tr(),
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
@@ -47,9 +48,12 @@ class NotificationScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _notificationTile("Qibla Direction", "Update your qibla direction"),
+          _notificationTile(
+            "qibla_direction".tr(),
+            "update_qibla_direction".tr(),
+          ),
           const SizedBox(height: 16),
-          _notificationTile("Tasbeeh", "Complete your tasbeeh"),
+          _notificationTile("tasbeeh".tr(), "complete_tasbeeh".tr()),
         ],
       ),
     );

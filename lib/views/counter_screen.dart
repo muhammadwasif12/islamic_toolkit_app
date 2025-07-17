@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:easy_localization/easy_localization.dart'; // for .tr()
 import 'package:islamic_toolkit_app/view_model/counter_state_provider.dart';
 import '../widgets/custom_app_bar.dart';
 
@@ -12,12 +13,13 @@ class CounterScreen extends ConsumerWidget {
     final counter = ref.watch(counterProvider);
 
     return Scaffold(
-       appBar: const CustomAppBar(title: "Tasbeeh Counter"),
+      appBar: CustomAppBar(title: tr('tasbeeh_counter')),
       backgroundColor: const Color(0xffFDFCF7),
 
       body: SafeArea(
         child: Column(
           children: [
+            // Top Image
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               child: Container(
@@ -26,20 +28,22 @@ class CounterScreen extends ConsumerWidget {
                 ),
                 child: Image.asset(
                   'assets/qibla_images/Al-Fatihah.png',
-                  alignment: Alignment.bottomCenter,
                   fit: BoxFit.contain,
+                  alignment: Alignment.bottomCenter,
                   filterQuality: FilterQuality.high,
                   semanticLabel: 'Surah Al-Fatihah Image',
                 ),
               ),
             ),
 
+            // Counter & Progress
             Expanded(
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Circular Counter Display
                     Container(
                       width: 250,
                       height: 280,
@@ -97,7 +101,7 @@ class CounterScreen extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                'of 99',
+                                '${tr('of')} 99',
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.black.withOpacity(0.5),
@@ -112,7 +116,7 @@ class CounterScreen extends ConsumerWidget {
 
                     const SizedBox(height: 5),
 
-                    // Progress Bar
+                    // Linear Progress Bar
                     Container(
                       width: double.infinity,
                       height: 8,
@@ -123,7 +127,7 @@ class CounterScreen extends ConsumerWidget {
                       ),
                       child: FractionallySizedBox(
                         alignment: Alignment.centerLeft,
-                        widthFactor: counter / 99,
+                        widthFactor: (counter / 99).clamp(0.0, 1.0),
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xFF52C4A0),
@@ -138,6 +142,7 @@ class CounterScreen extends ConsumerWidget {
                     // Buttons
                     Row(
                       children: [
+                        // Reset Button
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -156,9 +161,9 @@ class CounterScreen extends ConsumerWidget {
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                 ),
-                                child: const Text(
-                                  'Reset',
-                                  style: TextStyle(
+                                child: Text(
+                                  tr('reset'),
+                                  style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -168,6 +173,7 @@ class CounterScreen extends ConsumerWidget {
                           ),
                         ),
 
+                        // Vibrate (Increment) Button
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -190,9 +196,9 @@ class CounterScreen extends ConsumerWidget {
                                   ),
                                   shadowColor: Colors.amber.withOpacity(0.4),
                                 ),
-                                child: const Text(
-                                  'Vibrate',
-                                  style: TextStyle(
+                                child: Text(
+                                  tr('vibrate'),
+                                  style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
                                   ),

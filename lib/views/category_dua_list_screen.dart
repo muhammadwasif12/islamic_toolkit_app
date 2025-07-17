@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_toolkit_app/models/dua_category_model.dart';
 import 'package:islamic_toolkit_app/views/dua_detail_screen.dart';
 import '../widgets/custom_app_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CategoryDuaListScreen extends StatelessWidget {
   final DuaCategory category;
@@ -14,8 +15,8 @@ class CategoryDuaListScreen extends StatelessWidget {
     final duas = category.duas;
 
     return Scaffold(
-       appBar:  CustomAppBar(title:category.name),
-      
+      appBar: CustomAppBar(title: category.name.tr()),
+
       body: ListView.builder(
         itemCount: duas.length,
         padding: const EdgeInsets.all(16),
@@ -26,7 +27,12 @@ class CategoryDuaListScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DuaDetailScreen(dua: dua,currentIndex: index,totalCount: category.duas.length,),
+                  builder:
+                      (context) => DuaDetailScreen(
+                        dua: dua,
+                        currentIndex: index,
+                        totalCount: category.duas.length,
+                      ),
                 ),
               );
             },

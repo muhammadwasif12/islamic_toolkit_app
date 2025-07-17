@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts: ^6.2.1
   flutter_svg: ^2.2.0
-  #flutter_compass: '^0.8.1'
+  flutter_compass: '^0.8.1'
   location: ^8.0.1
   permission_handler: ^12.0.1
   shared_preferences: ^2.5.3
@@ -44,11 +44,14 @@ dependencies:
   flutter_riverpod: ^2.6.1
   adhan: ^2.0.0+1
   timezone: ^0.10.0
-  geolocator: ^14.0.2
+  geolocator: ^10.1.1
   geocoding: ^4.0.0
-  intl: ^0.20.2
+  intl: ^0.19.0
   http: ^1.2.1
-            
+  easy_localization: ^3.0.3            
+  flutter_local_notifications: ^19.3.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +87,7 @@ flutter:
     - assets/home_images/
     - assets/qibla_images/
     - assets/json/daily_duas.json
+    - assets/languageChange/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

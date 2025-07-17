@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
-import '../models/prayer_times_model.dart';
-import 'package:islamic_toolkit_app/view_model/prayer_times_provider.dart';
-import 'package:islamic_toolkit_app/view_model/location_service_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:islamic_toolkit_app/widgets/build_prayer_time_card.dart';
-import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../models/prayer_times_model.dart';
+import '../view_model/prayer_times_provider.dart';
+import '../view_model/location_service_provider.dart';
+import '../widgets/build_prayer_time_card.dart';
+import 'package:islamic_toolkit_app/services/notification_service.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -15,11 +17,30 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class HomeScreenState extends ConsumerState<HomeScreen> {
   Timer? _timer;
+  bool _hasScheduled = false;
 
   @override
   void initState() {
     super.initState();
     _startTimer();
+
+    //  Schedule prayer notifications after loading prayer times
+    Future.delayed(Duration.zero, () {
+      final prayerTimes = ref
+          .read(prayerTimesProvider)
+          .maybeWhen(data: (times) => times, orElse: () => null);
+
+      if (prayerTimes != null && !_hasScheduled) {
+        _hasScheduled = true;
+        NotificationService.schedulePrayerNotifications({
+          'fajr': prayerTimes.fajr,
+          'dhuhr': prayerTimes.dhuhr,
+          'asr': prayerTimes.asr,
+          'maghrib': prayerTimes.maghrib,
+          'isha': prayerTimes.isha,
+        });
+      }
+    });
   }
 
   void _startTimer() {
@@ -78,12 +99,10 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
         ),
-
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
             height: MediaQuery.of(context).size.height * 0.43,
-
             width: double.infinity,
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -115,16 +134,16 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
   Widget _buildLoadingState() {
     return Container(
       decoration: const BoxDecoration(color: Color.fromRGBO(62, 180, 137, 1)),
-      child: const SafeArea(
+      child: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(color: Colors.white),
-              SizedBox(height: 16),
+              const CircularProgressIndicator(color: Colors.white),
+              const SizedBox(height: 16),
               Text(
-                'Loading Prayer Times...',
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                'loading_prayer_times'.tr(),
+                style: const TextStyle(color: Colors.white, fontSize: 18),
               ),
             ],
           ),
@@ -143,9 +162,9 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
             children: [
               const Icon(Icons.error_outline, color: Colors.white, size: 64),
               const SizedBox(height: 16),
-              const Text(
-                'Unable to load prayer times',
-                style: TextStyle(color: Colors.white, fontSize: 18),
+              Text(
+                'unable_to_load_prayer'.tr(),
+                style: const TextStyle(color: Colors.white, fontSize: 18),
               ),
               const SizedBox(height: 8),
               Text(
@@ -161,7 +180,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                   ref.invalidate(prayerTimesProvider);
                 },
                 icon: const Icon(Icons.refresh),
-                label: const Text('Retry'),
+                label: Text('retry'.tr()),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.green,
@@ -185,7 +204,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  prayerTimes.hijriDate,
+                  getLocalizedHijriDate(prayerTimes.hijriDate),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -201,10 +220,14 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
               ],
             ),
           ),
-          ImageIcon(
-            AssetImage('assets/home_images/bell.png'),
-            color: Colors.white,
-            size: 25,
+
+          IconButton(
+            icon: const ImageIcon(
+              AssetImage('assets/home_images/bell.png'),
+              color: Colors.white,
+              size: 25,
+            ),
+            onPressed: () {},
           ),
         ],
       ),
@@ -227,7 +250,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
         Text(
-          "${prayerTimes.nextPrayer} $hours hour $minutes min left",
+          "${prayerTimes.nextPrayer.tr()} $hours ${'hour'.tr()} $minutes ${'min'.tr()} ${'left'.tr()}",
           style: const TextStyle(color: Colors.white, fontSize: 12),
         ),
       ],
@@ -256,42 +279,42 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
             children: [
               Expanded(
                 child: PrayerTimeCard(
-                  name: 'Fajr',
+                  name: 'fajr'.tr(),
                   time: prayerTimes.fajr,
                   iconPath: 'assets/home_images/fajr.png',
-                  isNext: prayerTimes.nextPrayer == 'Fajr',
+                  isNext: prayerTimes.nextPrayer == 'fajr',
                 ),
               ),
               Expanded(
                 child: PrayerTimeCard(
-                  name: 'Zuhr',
+                  name: 'zuhr'.tr(),
                   time: prayerTimes.dhuhr,
                   iconPath: 'assets/home_images/zuhr.png',
-                  isNext: prayerTimes.nextPrayer == 'Zuhr',
+                  isNext: prayerTimes.nextPrayer == 'zuhr',
                 ),
               ),
               Expanded(
                 child: PrayerTimeCard(
-                  name: 'Asr',
+                  name: 'asr'.tr(),
                   time: prayerTimes.asr,
                   iconPath: 'assets/home_images/asr.png',
-                  isNext: prayerTimes.nextPrayer == 'Asr',
+                  isNext: prayerTimes.nextPrayer == 'asr',
                 ),
               ),
               Expanded(
                 child: PrayerTimeCard(
-                  name: 'Maghrib',
+                  name: 'maghrib'.tr(),
                   time: prayerTimes.maghrib,
                   iconPath: 'assets/home_images/maghrib.png',
-                  isNext: prayerTimes.nextPrayer == 'Maghrib',
+                  isNext: prayerTimes.nextPrayer == 'maghrib',
                 ),
               ),
               Expanded(
                 child: PrayerTimeCard(
-                  name: 'Isha',
+                  name: 'isha'.tr(),
                   time: prayerTimes.isha,
                   iconPath: 'assets/home_images/isha.png',
-                  isNext: prayerTimes.nextPrayer == 'Isha',
+                  isNext: prayerTimes.nextPrayer == 'isha',
                 ),
               ),
             ],
@@ -305,7 +328,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        image: DecorationImage(
+        image: const DecorationImage(
           image: AssetImage('assets/home_images/islamic.png'),
           fit: BoxFit.cover,
         ),

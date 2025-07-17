@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:islamic_toolkit_app/view_model/duas_category_provider.dart';
 
 class DuaTabSelector extends ConsumerWidget {
@@ -37,7 +38,7 @@ class DuaTabSelector extends ConsumerWidget {
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  'All Duas',
+                  'all_duas'.tr(),
                   style: GoogleFonts.roboto(
                     color: selectedTab == 0 ? Colors.black : Colors.grey,
                     fontWeight: FontWeight.w500,
@@ -70,7 +71,7 @@ class DuaTabSelector extends ConsumerWidget {
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  'My Favorites',
+                  'favorites'.tr(),
                   style: GoogleFonts.roboto(
                     color: selectedTab == 1 ? Colors.black : Colors.grey,
                     fontWeight: FontWeight.w500,

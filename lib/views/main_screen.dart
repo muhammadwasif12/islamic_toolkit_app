@@ -8,6 +8,7 @@ import 'package:islamic_toolkit_app/views/settings_screen.dart';
 import 'package:islamic_toolkit_app/view_model/selected_index_provider.dart';
 import 'package:islamic_toolkit_app/view_model/prayer_times_provider.dart';
 import 'package:islamic_toolkit_app/widgets/build_nav_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
@@ -50,38 +51,37 @@ class MainScreen extends ConsumerWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         NavItemWidget(
                           iconPath: 'assets/home_images/home1.png',
-                          label: "Home",
+                          label: "home".tr(),
                           index: 0,
                         ),
                         NavItemWidget(
                           iconPath: 'assets/home_images/qibla1.png',
-                          label: "Qibla",
+                          label: "qibla".tr(),
                           index: 1,
                         ),
                         NavItemWidget(
                           iconPath: 'assets/home_images/dua1.png',
-                          label: "Dua's",
+                          label: "duas".tr(),
                           index: 2,
                         ),
                         NavItemWidget(
                           iconPath: 'assets/home_images/counter1.png',
-                          label: "Counter",
+                          label: "counter".tr(),
                           index: 3,
                         ),
                         NavItemWidget(
                           iconPath: 'assets/home_images/setting1.png',
-                          label: "Settings",
+                          label: "settings".tr(),
                           index: 4,
                         ),
                       ],
                     ),
-                     const SizedBox(height: 14),
-                   
+                    const SizedBox(height: 14),
                   ],
                 ),
               ),

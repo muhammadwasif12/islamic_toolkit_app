@@ -7,7 +7,7 @@ final counterProvider = StateNotifierProvider<CounterNotifier, int>((ref) {
 
 class CounterNotifier extends StateNotifier<int> {
   CounterNotifier() : super(0) {
-    _loadCounter(); 
+    _loadCounter();
   }
 
   Future<void> _loadCounter() async {
