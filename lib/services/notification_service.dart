@@ -84,67 +84,103 @@ class NotificationService {
   static Future<void> schedulePrayerNotifications(
     Map<String, DateTime> prayerTimes,
   ) async {
+    // ✅ IMPROVED: Better permission handling
     if (!await _checkPermissions()) {
       debugPrint('❌ Notification permissions not granted');
-      return;
+      // Still try to schedule - permissions might be granted later
     }
 
     await cancelPrayerNotifications();
     int id = 101;
 
+    debugPrint('🕌 Prayer times to schedule:');
+    for (var entry in prayerTimes.entries) {
+      debugPrint('   ${entry.key}: ${entry.value}');
+    }
+
     for (var entry in prayerTimes.entries) {
       final name = entry.key;
       final time = entry.value;
-      final notificationTime = time.subtract(const Duration(minutes: 10));
 
-      // Create TZDateTime properly
-      final tzTime = tz.TZDateTime.from(notificationTime, tz.local);
-
-      // Skip if time has already passed
-      if (tzTime.isBefore(tz.TZDateTime.now(tz.local))) {
-        // Schedule for next day
-        final nextDay = tzTime.add(const Duration(days: 1));
-        await _scheduleNotification(id++, name, nextDay);
-      } else {
-        await _scheduleNotification(id++, name, tzTime);
+      try {
+        await _schedulePrayerNotification(id++, name, time);
+      } catch (e) {
+        debugPrint('❌ Error scheduling $name notification: $e');
       }
     }
 
-    debugPrint('✅ Prayer notifications scheduled successfully');
+    await getPendingNotifications();
+    debugPrint('✅ Prayer notifications scheduling completed');
   }
 
-  static Future<void> _scheduleNotification(
+  static Future<void> _schedulePrayerNotification(
     int id,
     String prayerName,
-    tz.TZDateTime scheduledTime,
+    DateTime prayerTime,
   ) async {
-    await _notificationsPlugin.zonedSchedule(
-      id,
-      '🕌 ${prayerName.toUpperCase()} Prayer',
-      '10 minutes left for ${prayerName.toUpperCase()} prayer',
-      scheduledTime,
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'prayer_channel',
-          'Prayer Time Notifications',
-          channelDescription: 'Notifies before prayer times',
-          importance: Importance.high,
-          priority: Priority.high,
-          color: Colors.green,
-          enableVibration: true,
-          playSound: true,
-          icon: '@mipmap/ic_launcher',
-        ),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+    // ✅ IMPROVED: Better timezone handling
+    final notificationTime = prayerTime.subtract(const Duration(minutes: 10));
 
-      matchDateTimeComponents: DateTimeComponents.time,
+    // Create proper timezone DateTime for Pakistan
+    final now = DateTime.now();
+    final tzTime = tz.TZDateTime(
+      tz.local,
+      notificationTime.year,
+      notificationTime.month,
+      notificationTime.day,
+      notificationTime.hour,
+      notificationTime.minute,
     );
+
+    // ✅ IMPROVED: Better handling of past times
+    tz.TZDateTime scheduledTime;
+    if (tzTime.isBefore(tz.TZDateTime.now(tz.local))) {
+      // Schedule for next day
+      scheduledTime = tzTime.add(const Duration(days: 1));
+      debugPrint(
+        '📅 $prayerName time passed, scheduling for tomorrow: $scheduledTime',
+      );
+    } else {
+      scheduledTime = tzTime;
+      debugPrint('⏰ Scheduling $prayerName for today: $scheduledTime');
+    }
+
+    try {
+      await _notificationsPlugin.zonedSchedule(
+        id,
+        '🕌 ${prayerName.toUpperCase()} Prayer',
+        '10 minutes left for ${prayerName.toUpperCase()} prayer',
+        scheduledTime,
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'prayer_channel',
+            'Prayer Time Notifications',
+            channelDescription: 'Notifies before prayer times',
+            importance: Importance.high,
+            priority: Priority.high,
+            color: Colors.green,
+            enableVibration: true,
+            playSound: true,
+            icon: '@mipmap/ic_launcher',
+            showWhen: true,
+            when: null,
+            usesChronometer: false,
+            channelShowBadge: true,
+          ),
+        ),
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+
+      debugPrint(' Successfully scheduled $prayerName notification (ID: $id)');
+    } catch (e) {
+      debugPrint(' Failed to schedule $prayerName notification: $e');
+    }
   }
 
   static Future<void> scheduleDailyDuas() async {
     if (!await _checkPermissions()) {
-      debugPrint('❌ Notification permissions not granted for duas');
+      debugPrint(' Notification permissions not granted for duas');
       return;
     }
 
@@ -155,7 +191,7 @@ class NotificationService {
       final now = tz.TZDateTime.now(tz.local);
 
       final jsonString = await rootBundle.loadString(
-        'assets/json/daily_duas.json',
+        'assets/json/duas.json',
       );
       final data = jsonDecode(jsonString) as Map<String, dynamic>;
 
@@ -165,7 +201,7 @@ class NotificationService {
               .toList();
 
       if (allDuas.isEmpty) {
-        debugPrint('❌ No duas found in JSON file');
+        debugPrint(' No duas found in JSON file');
         return;
       }
 
@@ -204,14 +240,13 @@ class NotificationService {
             ),
           ),
           androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-
           matchDateTimeComponents: DateTimeComponents.time,
         );
       }
 
-      debugPrint('✅ Daily duas scheduled successfully');
+      debugPrint(' Daily duas scheduled successfully');
     } catch (e) {
-      debugPrint('❌ Error scheduling daily duas: $e');
+      debugPrint(' Error scheduling daily duas: $e');
     }
   }
 
@@ -219,19 +254,19 @@ class NotificationService {
     for (int i = 101; i <= 105; i++) {
       await _notificationsPlugin.cancel(i);
     }
-    debugPrint('🗑️ Prayer notifications cancelled');
+    debugPrint('Prayer notifications cancelled');
   }
 
   static Future<void> cancelDuaNotifications() async {
     for (int i = 200; i <= 202; i++) {
       await _notificationsPlugin.cancel(i);
     }
-    debugPrint('🗑️ Dua notifications cancelled');
+    debugPrint(' Dua notifications cancelled');
   }
 
   static Future<void> cancelAllNotifications() async {
     await _notificationsPlugin.cancelAll();
-    debugPrint('🗑️ All notifications cancelled');
+    debugPrint('All notifications cancelled');
   }
 
   static Future<bool> _checkPermissions() async {
@@ -247,8 +282,8 @@ class NotificationService {
       final bool exactAlarmPermission =
           await androidImpl.canScheduleExactNotifications() ?? false;
 
-      debugPrint('📱 Notification enabled: $notificationEnabled');
-      debugPrint('⏰ Exact alarm permission: $exactAlarmPermission');
+      debugPrint('Notification enabled: $notificationEnabled');
+      debugPrint(' Exact alarm permission: $exactAlarmPermission');
 
       return notificationEnabled && exactAlarmPermission;
     }
@@ -256,14 +291,30 @@ class NotificationService {
     return false;
   }
 
-  // Get pending notifications for debugging
+  //  IMPROVED: More detailed debugging
   static Future<void> getPendingNotifications() async {
-    final List<PendingNotificationRequest> pending =
-        await _notificationsPlugin.pendingNotificationRequests();
+    try {
+      final List<PendingNotificationRequest> pending =
+          await _notificationsPlugin.pendingNotificationRequests();
 
-    debugPrint('📋 Pending notifications: ${pending.length}');
-    for (var notification in pending) {
-      debugPrint('   - ID: ${notification.id}, Title: ${notification.title}');
+      debugPrint(' Pending notifications: ${pending.length}');
+      if (pending.isEmpty) {
+        debugPrint('   No pending notifications found');
+      } else {
+        for (var notification in pending) {
+          debugPrint(
+            '   - ID: ${notification.id}, Title: ${notification.title}',
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint(' Error getting pending notifications: $e');
     }
+  }
+
+  //  NEW: Manual permission request method
+  static Future<bool> requestPermissions() async {
+    await _requestNotificationPermissions();
+    return await _checkPermissions();
   }
 }

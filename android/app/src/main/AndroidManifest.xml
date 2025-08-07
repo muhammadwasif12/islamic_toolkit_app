@@ -16,6 +16,21 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
+     <!-- 🆕 Home Widget Provider -->
+     <receiver
+    android:name="com.example.islamic_toolkit_app.HomeWidgetProvider"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+    </intent-filter>
+
+    <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/home_widget_info" />
+</receiver>
+
+
+
         <!-- ✅ Boot Receiver (Add This) -->
         <receiver
             android:enabled="true"

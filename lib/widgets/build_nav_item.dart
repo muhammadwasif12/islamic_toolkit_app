@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:islamic_toolkit_app/view_model/selected_index_provider.dart';
 
 class NavItemWidget extends ConsumerWidget {
@@ -19,6 +20,22 @@ class NavItemWidget extends ConsumerWidget {
     final selectedIndex = ref.watch(selectedIndexProvider);
     final isActive = selectedIndex == index;
 
+    final iconWidget =
+        iconPath.endsWith('.svg')
+            ? SvgPicture.asset(
+              iconPath,
+              width: 24,
+              height: 24,
+              color: isActive ? Colors.green : Colors.black54,
+            )
+            : Image.asset(
+              iconPath,
+              width: 24,
+              height: 24,
+              color: isActive ? Colors.green : Colors.black54,
+              filterQuality: FilterQuality.high,
+            );
+
     return GestureDetector(
       onTap: () {
         ref.read(selectedIndexProvider.notifier).state = index;
@@ -26,11 +43,7 @@ class NavItemWidget extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ImageIcon(
-            AssetImage(iconPath),
-            size: 24,
-            color: isActive ? Colors.green : Colors.black54,
-          ),
+          iconWidget,
           const SizedBox(height: 4),
           Text(
             label,

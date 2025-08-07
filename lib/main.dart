@@ -6,23 +6,17 @@ import 'package:islamic_toolkit_app/widgets/app_rebuilder.dart';
 import 'package:islamic_toolkit_app/services/notification_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:device_preview/device_preview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation('Asia/Karachi'));
 
   await NotificationService.init();
   await NotificationService.scheduleDailyDuas();
-  await NotificationService.schedulePrayerNotifications({
-  'fajr': DateTime.now(),
-  'dhuhr': DateTime.now(),
-  'asr': DateTime.now(),
-  'maghrib': DateTime.now(),
-  'isha': DateTime.now(),
-});
-
 
   runApp(
     EasyLocalization(
@@ -34,7 +28,10 @@ void main() async {
       ],
       path: 'assets/languageChange',
       fallbackLocale: const Locale('en'),
-      child: const ProviderScope(child: AppRebuilder()),
+      child: DevicePreview(
+        enabled: false,
+        builder: (context) => const ProviderScope(child: AppRebuilder()),
+      ),
     ),
   );
 }

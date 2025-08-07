@@ -81,6 +81,7 @@
   "allah_is_great": "Allah is Great",
   "i_seek_forgiveness": "I seek forgiveness from Allah",
   "no_god_but_allah": "There is no god but Allah",
+"vibrate": "Vibrate",
 
 
   "muharram": "Muharram",
@@ -143,6 +144,17 @@
 
     "notification_history": "Notification History",
   "notifications_cleared": "Notifications cleared",
-  "no_notifications": "No notifications yet"
+  "no_notifications": "No notifications yet",
+
+
+   "tasbeeh_completed": "Tasbeeh Completed",
+  "hijri_calendar": "Hijri Calendar",
+
+    "hour_format_24": "24-Hour Format",
+      "hour_format_12": "12-Hour Format"
+
+
+
+
 
 }

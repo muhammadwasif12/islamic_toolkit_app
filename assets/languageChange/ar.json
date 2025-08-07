@@ -140,7 +140,16 @@
 
     "notification_history": "سجل الإشعارات",
   "notifications_cleared": "تم مسح الإشعارات",
-  "no_notifications": "لا توجد إشعارات حتى الآن"
+  "no_notifications": "لا توجد إشعارات حتى الآن",
+
+
+  
+  "tasbeeh_completed": "اكتملت التسبيح",
+  "hijri_calendar": "التقويم الهجري",
+    "hour_format_24": "تنسيق 24 ساعة",
+      "hour_format_12": "تنسيق 12 ساعة"
+
+
 
 
 

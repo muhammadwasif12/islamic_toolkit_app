@@ -91,7 +91,6 @@ class DuasScreen extends ConsumerWidget {
                     children: [
                       Text(
                         category.name.tr(),
-
                         style: GoogleFonts.roboto(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -168,11 +167,18 @@ class DuasScreen extends ConsumerWidget {
       );
     }
 
+    // Create a special category for favorites with navigation support
     List<Dua> favoriteDuas = [];
+    Map<String, int> duaToOriginalIndex = {};
+    Map<String, DuaCategory> duaToCategory = {};
+
     for (var category in categories) {
-      for (var dua in category.duas) {
+      for (int i = 0; i < category.duas.length; i++) {
+        var dua = category.duas[i];
         if (favorites.contains(dua.id)) {
           favoriteDuas.add(dua);
+          duaToOriginalIndex[dua.id] = i;
+          duaToCategory[dua.id] = category;
         }
       }
     }
@@ -182,6 +188,9 @@ class DuasScreen extends ConsumerWidget {
       itemCount: favoriteDuas.length,
       itemBuilder: (context, index) {
         final dua = favoriteDuas[index];
+        final originalCategory = duaToCategory[dua.id]!;
+        final originalIndex = duaToOriginalIndex[dua.id]!;
+
         return Container(
           margin: const EdgeInsets.only(bottom: 12),
           decoration: BoxDecoration(
@@ -198,14 +207,15 @@ class DuasScreen extends ConsumerWidget {
           ),
           child: ListTile(
             onTap: () {
+              // Navigate to the original category's dua detail screen
+              // This allows navigation between all duas in that category
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder:
                       (context) => DuaDetailScreen(
-                        dua: dua,
-                        currentIndex: index,
-                        totalCount: favoriteDuas.length,
+                        initialIndex: originalIndex,
+                        category: originalCategory,
                       ),
                 ),
               );
@@ -219,11 +229,28 @@ class DuasScreen extends ConsumerWidget {
                 color: Colors.black87,
               ),
             ),
-            subtitle: Text(
-              dua.latin,
-              style: GoogleFonts.roboto(fontSize: 14, color: Colors.grey[600]),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  dua.latin,
+                  style: GoogleFonts.roboto(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'from_category'.tr() + ': ${originalCategory.name.tr()}',
+                  style: GoogleFonts.roboto(
+                    fontSize: 12,
+                    color: Colors.grey[500],
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
             ),
             trailing: const Icon(Icons.favorite, color: Colors.red),
           ),

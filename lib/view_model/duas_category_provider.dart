@@ -40,7 +40,7 @@ class FavoriteDuasNotifier extends StateNotifier<List<String>> {
 }
 
 final duaCategoriesProvider = FutureProvider<List<DuaCategory>>((ref) async {
-  final jsonStr = await rootBundle.loadString('assets/json/daily_duas.json');
+  final jsonStr = await rootBundle.loadString('assets/json/duas.json');
   final Map<String, dynamic> jsonData = json.decode(jsonStr);
 
   List<DuaCategory> categories = [];

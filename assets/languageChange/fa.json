@@ -141,5 +141,12 @@
 
     "notification_history": "تاریخچه اعلان‌ها",
   "notifications_cleared": "اعلان‌ها پاک شدند",
-  "no_notifications": "هنوز اعلانی وجود ندارد"
+  "no_notifications": "هنوز اعلانی وجود ندارد",
+
+  "tasbeeh_completed": "تسبیح کامل شد",
+  "hijri_calendar": "تقویم هجری",
+
+    "hour_format_24": "فرمت ۲۴ ساعته",
+      "hour_format_12": "فرمت ۱۲ ساعته"
+
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:islamic_toolkit_app/views/home_screen.dart';
+import '../../views/home_screen.dart';
 import 'package:islamic_toolkit_app/views/qibla_screen.dart';
 import 'package:islamic_toolkit_app/views/duas_screen.dart';
 import 'package:islamic_toolkit_app/views/counter_screen.dart';
@@ -55,27 +55,27 @@ class MainScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         NavItemWidget(
-                          iconPath: 'assets/home_images/home1.png',
+                          iconPath: 'assets/bottom_nav_images/home.svg',
                           label: "home".tr(),
                           index: 0,
                         ),
                         NavItemWidget(
-                          iconPath: 'assets/home_images/qibla1.png',
+                          iconPath: 'assets/bottom_nav_images/qibla1.png',
                           label: "qibla".tr(),
                           index: 1,
                         ),
                         NavItemWidget(
-                          iconPath: 'assets/home_images/dua1.png',
+                          iconPath: 'assets/bottom_nav_images/dua1.png',
                           label: "duas".tr(),
                           index: 2,
                         ),
                         NavItemWidget(
-                          iconPath: 'assets/home_images/counter1.png',
+                          iconPath: 'assets/bottom_nav_images/counter1.png',
                           label: "counter".tr(),
                           index: 3,
                         ),
                         NavItemWidget(
-                          iconPath: 'assets/home_images/setting1.png',
+                          iconPath: 'assets/bottom_nav_images/setting1.png',
                           label: "settings".tr(),
                           index: 4,
                         ),

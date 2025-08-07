@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+   android:paddingTop="16dp"
+   android:paddingLeft="16dp"
+   android:paddingRight="16dp"
+   android:paddingBottom="6dp" >
+ 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Islamic Toolkit"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="start" />
+
+        <!-- Refresh Button -->
+        <ImageButton
+            android:id="@+id/refresh_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/refresh_button_background"
+            android:src="@drawable/ic_refresh"
+            android:contentDescription="Refresh"
+            android:padding="4dp"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
+
+    <!-- Current Prayer Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/prayer_card_background"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Current Prayer"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/current_prayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Current: Dhuhr"
+            android:textColor="#2E7D32"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <!-- Next Prayer Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/prayer_card_background"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next Prayer"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginBottom="4dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/next_prayer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Asr"
+                android:textColor="#333333"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/next_prayer_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" in 02:15:30"
+                android:textColor="#FF5722"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginStart="4dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Daily Dua Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dua_card_background"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="✨ Daily Dua ✨"
+            android:textColor="#4CAF50"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:id="@+id/random_dua"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="رب زدني علما\nRabbi zidni ilma"
+            android:textColor="#333333"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="4"
+            android:ellipsize="end" />
+
+    </LinearLayout>
+
+    <!-- Last Updated Time - WHITE COLOR -->
+    <TextView
+        android:id="@+id/last_updated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Last updated: Now"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        android:gravity="center" />
+
+</LinearLayout>

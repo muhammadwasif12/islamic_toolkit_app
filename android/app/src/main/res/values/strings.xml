@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">islamic_toolkit_app</string>
+    <string name="widget_description">Islamic Prayer Times Widget - Shows current prayer, next prayer time with countdown, and daily ayat</string>
+</resources>

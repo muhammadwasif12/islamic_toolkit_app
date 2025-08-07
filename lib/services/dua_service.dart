@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 class DuaService {
   static Future<Map<String, String>> getRandomDua() async {
     final String jsonString = await rootBundle.loadString(
-      'assets/json/daily_duas.json',
+      'assets/json/daily_short_duas.json',
     );
     final Map<String, dynamic> allData = json.decode(jsonString);
 

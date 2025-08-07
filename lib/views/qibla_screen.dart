@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_svg/flutter_svg.dart'; // <-- added this
 import '../widgets/custom_app_bar.dart';
+import '../widgets/surah_bottom_sheet.dart';
 
 class QiblaScreen extends StatefulWidget {
   const QiblaScreen({super.key});
@@ -40,7 +42,7 @@ class _QiblaScreenState extends State<QiblaScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      _getUserLocation(); // Retry location fetch when user returns to app
+      _getUserLocation();
     }
   }
 
@@ -57,7 +59,7 @@ class _QiblaScreenState extends State<QiblaScreen> with WidgetsBindingObserver {
       if (permission == LocationPermission.deniedForever) return;
     }
 
-    _positionSub?.cancel(); // Prevent multiple subscriptions
+    _positionSub?.cancel();
     _positionSub = Geolocator.getPositionStream().listen((Position position) {
       double qibla = _calculateQiblaDirection(
         position.latitude,
@@ -100,18 +102,16 @@ class _QiblaScreenState extends State<QiblaScreen> with WidgetsBindingObserver {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
               child: GestureDetector(
-                onTap: () => _showSurahBottomSheet(context),
+                onTap: () => showSurahBottomSheet(context),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: Image.asset(
-                    'assets/qibla_images/Al-Fatihah.png',
-                    alignment: Alignment.bottomCenter,
+                  child: SvgPicture.asset(
+                    'assets/qibla_images/Al-Fatihah.svg',
                     fit: BoxFit.contain,
-                    filterQuality: FilterQuality.high,
                   ),
                 ),
               ),
@@ -128,43 +128,52 @@ class _QiblaScreenState extends State<QiblaScreen> with WidgetsBindingObserver {
                           : Stack(
                             alignment: Alignment.center,
                             children: [
+                              // Cardinal directions
                               Positioned(
-                                top: 0,
-                                child: Image.asset(
-                                  'assets/qibla_images/north.png',
-                                  height: 30,
+                                top: -1,
+                                child: SvgPicture.asset(
+                                  'assets/qibla_images/north.svg',
+                                  height: 25,
                                 ),
                               ),
                               Positioned(
-                                bottom: 0,
-                                child: Image.asset(
-                                  'assets/qibla_images/south.png',
-                                  height: 30,
+                                bottom: -0.9,
+                                child: SvgPicture.asset(
+                                  'assets/qibla_images/south.svg',
+                                  height: 25,
                                 ),
                               ),
                               Positioned(
-                                left: 0,
-                                child: Image.asset(
-                                  'assets/qibla_images/west.png',
-                                  height: 30,
+                                left: 14,
+                                child: SvgPicture.asset(
+                                  'assets/qibla_images/west.svg',
+                                  height: 23,
                                 ),
                               ),
                               Positioned(
-                                right: 10,
-                                child: Image.asset(
-                                  'assets/qibla_images/east.png',
-                                  height: 30,
+                                right: 19,
+                                child: SvgPicture.asset(
+                                  'assets/qibla_images/east.svg',
+                                  height: 23,
                                 ),
                               ),
 
-                              // Static compass background
-                              Image.asset('assets/qibla_images/lastline.png'),
-                              Image.asset(
-                                'assets/qibla_images/stronglineInner.png',
+                              // Background layers
+                              SvgPicture.asset(
+                                'assets/qibla_images/blackcircle.svg',
                               ),
-                              Image.asset('assets/qibla_images/innerline1.png'),
-                              Image.asset('assets/qibla_images/innerline.png'),
-                              Image.asset('assets/qibla_images/outerline.png'),
+                              SvgPicture.asset(
+                                'assets/qibla_images/stronglineInner.svg',
+                              ),
+                              SvgPicture.asset(
+                                'assets/qibla_images/innerline1.svg',
+                              ),
+                              SvgPicture.asset(
+                                'assets/qibla_images/innerline.svg',
+                              ),
+                              SvgPicture.asset(
+                                'assets/qibla_images/outerline.svg',
+                              ),
 
                               // Rotating Compass Needle
                               Transform.rotate(
@@ -173,55 +182,78 @@ class _QiblaScreenState extends State<QiblaScreen> with WidgetsBindingObserver {
                                 child: Stack(
                                   alignment: Alignment.center,
                                   children: [
-                                    Image.asset(
-                                      'assets/qibla_images/backNeedles.png',
+                                    SvgPicture.asset(
+                                      'assets/qibla_images/backNeedleShell.svg',
                                     ),
-                                    Image.asset(
-                                      'assets/qibla_images/needle2.png',
+                                    SvgPicture.asset(
+                                      'assets/qibla_images/needle2.svg',
                                     ),
-                                    Image.asset(
-                                      'assets/qibla_images/needle1.png',
+                                    SvgPicture.asset(
+                                      'assets/qibla_images/needle1.svg',
                                     ),
+                                    SvgPicture.asset(
+                                      'assets/qibla_images/sideNeedleShell.svg',
+                                    ),
+
                                     Align(
                                       alignment: Alignment.center,
                                       child: Transform.translate(
-                                        offset: const Offset(-50, 0),
-                                        child: Image.asset(
-                                          'assets/qibla_images/needle3.png',
-                                          height: 28,
+                                        offset: const Offset(-67, 0),
+                                        child: SvgPicture.asset(
+                                          'assets/qibla_images/needle3.svg',
                                         ),
                                       ),
                                     ),
                                     Align(
                                       alignment: Alignment.center,
                                       child: Transform.translate(
-                                        offset: const Offset(60, 0),
-                                        child: Image.asset(
-                                          'assets/qibla_images/needle4.png',
-                                          height: 25,
+                                        offset: const Offset(62, 0),
+                                        child: SvgPicture.asset(
+                                          'assets/qibla_images/needle4.svg',
                                         ),
                                       ),
                                     ),
-                                    Image.asset(
-                                      'assets/qibla_images/dottedcircle.png',
+                                    SvgPicture.asset(
+                                      'assets/qibla_images/dottedcircle.svg',
                                     ),
-                                    Image.asset(
-                                      'assets/qibla_images/greencircle.png',
+                                    SvgPicture.asset(
+                                      'assets/qibla_images/greencircle.svg',
                                     ),
-                                    Image.asset(
-                                      'assets/qibla_images/blackcircle.png',
+                                    SvgPicture.asset(
+                                      'assets/qibla_images/blackcircle.svg',
                                     ),
-                                    Image.asset(
-                                      'assets/qibla_images/mainNeedle.png',
+                                    SvgPicture.asset(
+                                      'assets/qibla_images/backShellMainNeedle.svg',
                                     ),
-                                    Image.asset(
-                                      'assets/qibla_images/mainpoint.png',
+
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Transform.translate(
+                                        offset: const Offset(153.5, 66),
+                                        child: SvgPicture.asset(
+                                          'assets/qibla_images/mainNeedle2.svg',
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Transform.translate(
+                                        offset: const Offset(-154, -66),
+                                        child: SvgPicture.asset(
+                                          'assets/qibla_images/mainNeedle1.svg',
+                                        ),
+                                      ),
+                                    ),
+
+                                    SvgPicture.asset(
+                                      'assets/qibla_images/mainpoint.svg',
                                     ),
                                     Positioned(
-                                      top: 0,
+                                      top: -8,
                                       child: Image.asset(
-                                        'assets/qibla_images/qibla.png',
-                                        height: 50,
+                                        'assets/qibla_images/qiblaDirection.png',
+                                        height: 55,
+                                        filterQuality: FilterQuality.high,
                                       ),
                                     ),
                                   ],
@@ -235,114 +267,6 @@ class _QiblaScreenState extends State<QiblaScreen> with WidgetsBindingObserver {
           ],
         ),
       ),
-    );
-  }
-
-  void _showSurahBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder:
-          (context) => DraggableScrollableSheet(
-            initialChildSize: 0.6,
-            maxChildSize: 0.95,
-            minChildSize: 0.4,
-            expand: false,
-            builder:
-                (context, scrollController) => Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFFe8f5e9), Color(0xFFc8e6c9)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(32),
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(24),
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white70,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 6,
-                                    offset: const Offset(2, 2),
-                                  ),
-                                ],
-                              ),
-                              padding: const EdgeInsets.all(6),
-                              child: const Icon(
-                                Icons.close,
-                                size: 20,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          "surah_al_fatihah".tr(),
-                          style: const TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Mycustomfont',
-                            color: Color(0xFFB7935F),
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 20,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
-                            borderRadius: BorderRadius.circular(24),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 12,
-                                offset: const Offset(0, 6),
-                              ),
-                            ],
-                          ),
-                          child: const Text(
-                            "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ\n"
-                            "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ\n"
-                            "الرَّحْمَٰنِ الرَّحِيمِ\n"
-                            "مَالِكِ يَوْمِ الدِّينِ\n"
-                            "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ\n"
-                            "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ\n"
-                            "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ "
-                            "غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: 'Mycustomfont',
-                              height: 2,
-                              color: Color(0xFF2F2F2F),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 32),
-                      ],
-                    ),
-                  ),
-                ),
-          ),
     );
   }
 }

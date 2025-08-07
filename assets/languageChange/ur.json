@@ -140,7 +140,16 @@
 
     "notification_history": "اطلاعات کی تاریخ",
   "notifications_cleared": "اطلاعات صاف کر دی گئی ہیں",
-  "no_notifications": "ابھی تک کوئی اطلاع نہیں"
+  "no_notifications": "ابھی تک کوئی اطلاع نہیں",
+
+
+  "tasbeeh_completed": "تسبیح مکمل ہوئی",
+  "hijri_calendar": "ہجری کیلنڈر",
+    "hour_format_24": "24-گھنٹے کی وضع",
+      "hour_format_12": "12-گھنٹے کی وضع"
+
+
+
 
 
 
