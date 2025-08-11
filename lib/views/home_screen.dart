@@ -18,6 +18,8 @@ import '../widgets/loading_state_widget.dart';
 import '../widgets/fallback_dua_widget.dart';
 import '../widgets/dua_content_widget.dart';
 import '../widgets/formatted_time_widget.dart';
+import '../view_model/ad_manager_provider.dart';
+import '../widgets/banner_ad_widget.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -169,6 +171,8 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final shouldShowBannerAd = ref.watch(shouldShowBannerAdsProvider);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: ref
@@ -182,7 +186,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                 });
               }
 
-              return _buildMainContent(prayerTimes);
+              return _buildMainContent(prayerTimes, shouldShowBannerAd);
             },
             loading: () => const LoadingStateWidget(),
             error: (error, stack) => ErrorStateWidget(error: error, ref: ref),
@@ -190,7 +194,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildMainContent(PrayerTimesModel prayerTimes) {
+  Widget _buildMainContent(PrayerTimesModel prayerTimes, bool showBannerAd) {
     final currentTime = ref.watch(currentTimeProvider);
 
     final updatedPrayerTimes = PrayerTimesModel(
@@ -207,8 +211,8 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final screenHeight = constraints.maxHeight;
         final screenWidth = constraints.maxWidth;
+        final screenHeight = constraints.maxHeight;
 
         return Stack(
           children: [
@@ -248,7 +252,21 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                   ],
                 ),
-                child: _buildDynamicDuaSection(screenHeight),
+                child: Column(
+                  children: [
+                    Expanded(child: _buildDynamicDuaSection(screenHeight)),
+                    // Banner Ad at Bottom (if enabled)
+                    if (showBannerAd)
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: const BannerAdWidget(
+                          margin: EdgeInsets.symmetric(horizontal: 16),
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          backgroundColor: Color(0xffFDFCF7),
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
           ],

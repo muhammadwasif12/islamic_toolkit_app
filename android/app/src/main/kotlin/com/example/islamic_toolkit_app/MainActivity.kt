@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.util.Log
+import com.google.android.gms.ads.MobileAds
 
 class MainActivity: FlutterActivity() {
     private val CHANNEL = "com.example.islamic_toolkit_app/widget"
@@ -16,6 +17,11 @@ class MainActivity: FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        
+          // ✅ AdMob Initialize
+        MobileAds.initialize(this) { initializationStatus ->
+            Log.d("AdMob", "✅ AdMob initialized: $initializationStatus")
+        }
         
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
             when (call.method) {

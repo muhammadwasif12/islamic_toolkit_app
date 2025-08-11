@@ -16,6 +16,11 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
+
+    <meta-data
+    android:name="com.google.android.gms.ads.APPLICATION_ID"
+    android:value="ca-app-pub-5299108249188952~4557141697" />
+
      <!-- 🆕 Home Widget Provider -->
      <receiver
     android:name="com.example.islamic_toolkit_app.HomeWidgetProvider"

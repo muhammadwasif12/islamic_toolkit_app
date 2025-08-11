@@ -28,6 +28,12 @@ class HomeWidgetService {
     'أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ',
   ];
 
+  /// Helper function to capitalize prayer names
+  static String _capitalizePrayerName(String prayerName) {
+    if (prayerName.isEmpty) return prayerName;
+    return prayerName[0].toUpperCase() + prayerName.substring(1).toLowerCase();
+  }
+
   /// 🚀 Initialize HomeWidget Service
   static Future<void> initialize({required WidgetRef ref}) async {
     if (_isInitialized) {
@@ -159,7 +165,7 @@ class HomeWidgetService {
     try {
       final currentTime = DateTime.now();
       final currentPrayer = _getCurrentPrayer(prayerTimes, currentTime);
-      final nextPrayer = prayerTimes.nextPrayer;
+      final nextPrayer = _capitalizePrayerName(prayerTimes.nextPrayer); // 🔥 CAPITALIZE
       final timeRemaining = _formatTimeLeft(prayerTimes.timeToNextPrayer);
 
       debugPrint(' [SAVE] Saving real prayer data:');
@@ -209,14 +215,14 @@ class HomeWidgetService {
       final dataMap = {
         'flutter.app_name': 'Islamic Toolkit',
         'flutter.current_prayer': 'Maghrib',
-        'flutter.next_prayer_name': 'Isha',
+        'flutter.next_prayer_name': 'Isha', // Already capitalized
         'flutter.next_prayer_time': '01:45:30',
         'flutter.random_dua': duaArabic,
         'flutter.next_prayer': 'Isha in 01:45:30',
 
         'app_name': 'Islamic Toolkit',
         'current_prayer': 'Maghrib',
-        'next_prayer_name': 'Isha',
+        'next_prayer_name': 'Isha', // Already capitalized
         'next_prayer_time': '01:45:30',
         'random_dua': duaArabic,
         'next_prayer': 'Isha in 01:45:30',

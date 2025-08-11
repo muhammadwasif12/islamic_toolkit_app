@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.islamic_toolkit_app"
-        minSdk = flutter.minSdkVersion
+        minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -41,5 +41,9 @@ flutter {
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+        // Google Mobile Ads SDK (AdMob)
+    implementation("com.google.android.gms:play-services-ads:23.1.0")
+
+
 }
 

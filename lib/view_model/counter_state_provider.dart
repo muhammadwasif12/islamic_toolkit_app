@@ -11,11 +11,13 @@ final tasbeehCompletedProvider = StateProvider<bool>((ref) => false);
 
 final completedTasbeehCountProvider =
     StateNotifierProvider<CompletedTasbeehNotifier, int>((ref) {
-  return CompletedTasbeehNotifier();
-});
+      return CompletedTasbeehNotifier();
+    });
 
 // New provider for tasbeeh mode (33 or 99)
-final tasbeehModeProvider = StateNotifierProvider<TasbeehModeNotifier, int>((ref) {
+final tasbeehModeProvider = StateNotifierProvider<TasbeehModeNotifier, int>((
+  ref,
+) {
   return TasbeehModeNotifier();
 });
 
@@ -82,7 +84,7 @@ class CounterNotifier extends StateNotifier<int> {
     try {
       // Check if device has vibrator hardware
       final hasVibrator = await Vibration.hasVibrator();
-      
+
       if (hasVibrator == true) {
         // Test vibration to see if it actually works
         await Vibration.vibrate(duration: 50);
@@ -126,7 +128,7 @@ class CounterNotifier extends StateNotifier<int> {
     try {
       // Method 1: Try Vibration package first
       final hasVibrator = await Vibration.hasVibrator();
-      
+
       if (hasVibrator == true) {
         switch (intensity) {
           case VibrationIntensity.normal:
@@ -181,15 +183,6 @@ class CounterNotifier extends StateNotifier<int> {
 }
 
 // Enums for better code organization
-enum VibrationIntensity {
-  normal,
-  strong,
-}
+enum VibrationIntensity { normal, strong }
 
-enum VibrationStatus {
-  working,
-  disabled,
-  noHardware,
-  unknown,
-}
-
+enum VibrationStatus { working, disabled, noHardware, unknown }

@@ -7,9 +7,12 @@ import 'package:islamic_toolkit_app/services/notification_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:device_preview/device_preview.dart';
+import 'services/admob_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await AdMobService.initialize();
+
   await EasyLocalization.ensureInitialized();
 
   tz.initializeTimeZones();
@@ -56,7 +59,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Mycustomfont',
       ),
-      home: const SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }

@@ -24,7 +24,7 @@ class PrayerTimesModel {
   });
 
   Map<String, DateTime> get prayerTimes => {
-    'fajr': fajr,
+    ' fajr': fajr,
     'zuhr': dhuhr,
     'asr': asr,
     'maghrib': maghrib,

@@ -74,7 +74,7 @@ class HomeWidgetProvider : AppWidgetProvider() {
         appWidgetId: Int
     ) {
         try {
-            Log.d(TAG, "🔥 UPDATED WIDGET WITH REFRESH - VERSION 8.0")
+            Log.d(TAG, "🔥 UPDATED WIDGET WITH REFRESH - VERSION 9.0")
             Log.d(TAG, "📱 Updating widget $appWidgetId")
 
             val views = RemoteViews(context.packageName, R.layout.widget_layout)
@@ -195,10 +195,6 @@ class HomeWidgetProvider : AppWidgetProvider() {
             views.setTextViewText(R.id.next_prayer_name, nextPrayerName)
             views.setTextViewText(R.id.next_prayer_time, if (nextPrayerTime.startsWith("in ")) nextPrayerTime else "in $nextPrayerTime")
             views.setTextViewText(R.id.random_dua, randomDua)
-            
-            // Set last updated time
-            val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-            views.setTextViewText(R.id.last_updated, "Last updated: ${timeFormat.format(Date())}")
 
             // Set click intent to open app
             val openAppIntent = Intent(context, MainActivity::class.java).apply {
@@ -243,7 +239,6 @@ class HomeWidgetProvider : AppWidgetProvider() {
             errorViews.setTextViewText(R.id.next_prayer_name, "Tap refresh")
             errorViews.setTextViewText(R.id.next_prayer_time, "to try again")
             errorViews.setTextViewText(R.id.random_dua, "لا حول ولا قوة إلا بالله")
-            errorViews.setTextViewText(R.id.last_updated, "Error occurred")
 
             val intent = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP

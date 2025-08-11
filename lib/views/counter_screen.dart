@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../view_model/counter_state_provider.dart';
+import '../view_model/ad_manager_provider.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/vibration_dialog.dart';
 
@@ -18,6 +19,7 @@ class _CounterScreenState extends ConsumerState<CounterScreen>
   late AnimationController _controller;
   late Animation<double> _fadeIn;
   bool _hasShownVibrationDialog = false; // Track if dialog has been shown
+  bool _wasCompleted = false; // Track previous completion state
 
   @override
   void initState() {
@@ -38,10 +40,29 @@ class _CounterScreenState extends ConsumerState<CounterScreen>
   }
 
   void _checkAnimation(bool isCompleted) {
-    if (isCompleted) {
+    // Only trigger animation and ad if completion state just changed to true
+    if (isCompleted && !_wasCompleted) {
       _controller.forward(from: 0);
-    } else {
+      // Delay the ad showing to avoid modifying provider during build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showInterstitialAdOnCompletion();
+      });
+    } else if (!isCompleted) {
       _controller.reset();
+    }
+
+    _wasCompleted = isCompleted;
+  }
+
+  // Show interstitial ad on tasbeeh completion
+  Future<void> _showInterstitialAdOnCompletion() async {
+    try {
+      await ref
+          .read(adManagerProvider.notifier)
+          .showInterstitialAdOnTasbeehCompletion();
+      debugPrint('🟢 Interstitial ad triggered on tasbeeh completion');
+    } catch (e) {
+      debugPrint('🔴 Error showing interstitial ad: $e');
     }
   }
 
@@ -72,7 +93,10 @@ class _CounterScreenState extends ConsumerState<CounterScreen>
     final completedTasbeehCount = ref.watch(completedTasbeehCountProvider);
     final tasbeehMode = ref.watch(tasbeehModeProvider);
 
-    _checkAnimation(isCompleted);
+    // Check animation after build is complete to avoid provider modification during build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAnimation(isCompleted);
+    });
 
     return Scaffold(
       appBar: CustomAppBar(title: tr('tasbeeh_counter')),
@@ -153,13 +177,18 @@ class _CounterScreenState extends ConsumerState<CounterScreen>
                             height: 40,
                             child: ElevatedButton(
                               onPressed: () {
-                                ref
-                                    .read(tasbeehModeProvider.notifier)
-                                    .setMode(33);
-                                ref.read(counterProvider.notifier).reset();
-                                ref
-                                    .read(tasbeehCompletedProvider.notifier)
-                                    .state = false;
+                                // Use addPostFrameCallback to avoid modifying provider during build
+                                WidgetsBinding.instance.addPostFrameCallback((
+                                  _,
+                                ) {
+                                  ref
+                                      .read(tasbeehModeProvider.notifier)
+                                      .setMode(33);
+                                  ref.read(counterProvider.notifier).reset();
+                                  ref
+                                      .read(tasbeehCompletedProvider.notifier)
+                                      .state = false;
+                                });
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
@@ -192,13 +221,18 @@ class _CounterScreenState extends ConsumerState<CounterScreen>
                             height: 40,
                             child: ElevatedButton(
                               onPressed: () {
-                                ref
-                                    .read(tasbeehModeProvider.notifier)
-                                    .setMode(99);
-                                ref.read(counterProvider.notifier).reset();
-                                ref
-                                    .read(tasbeehCompletedProvider.notifier)
-                                    .state = false;
+                                // Use addPostFrameCallback to avoid modifying provider during build
+                                WidgetsBinding.instance.addPostFrameCallback((
+                                  _,
+                                ) {
+                                  ref
+                                      .read(tasbeehModeProvider.notifier)
+                                      .setMode(99);
+                                  ref.read(counterProvider.notifier).reset();
+                                  ref
+                                      .read(tasbeehCompletedProvider.notifier)
+                                      .state = false;
+                                });
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
@@ -378,12 +412,12 @@ class _CounterScreenState extends ConsumerState<CounterScreen>
 
                           const SizedBox(height: 15),
 
-                          // Buttons 
+                          // Buttons
                           Row(
                             children: [
                               Expanded(
                                 child: Container(
-                                  height: 38, 
+                                  height: 38,
                                   margin: const EdgeInsets.symmetric(
                                     horizontal: 18,
                                   ),
@@ -445,7 +479,7 @@ class _CounterScreenState extends ConsumerState<CounterScreen>
                               ),
                             ],
                           ),
-                          const SizedBox(height: 20), 
+                          const SizedBox(height: 20),
                         ],
                       ),
                     ),
