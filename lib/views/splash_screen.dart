@@ -19,7 +19,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    
+
     Future.delayed(const Duration(milliseconds: 200), () {
       if (mounted) {
         setState(() {
@@ -62,7 +62,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     try {
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => const MainScreen(),
+          pageBuilder:
+              (context, animation, secondaryAnimation) => const MainScreen(),
           transitionDuration: const Duration(milliseconds: 400),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(

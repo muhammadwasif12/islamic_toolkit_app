@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:math';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // <-- added this
+import 'package:geolocator/geolocator.dart';
+
 import '../widgets/custom_app_bar.dart';
 import '../widgets/surah_bottom_sheet.dart';
 
@@ -249,7 +251,7 @@ class _QiblaScreenState extends State<QiblaScreen> with WidgetsBindingObserver {
                                       'assets/qibla_images/mainpoint.svg',
                                     ),
                                     Positioned(
-                                      top: -8,
+                                      top: -6,
                                       child: Image.asset(
                                         'assets/qibla_images/qiblaDirection.png',
                                         height: 55,

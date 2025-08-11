@@ -25,9 +25,11 @@ class AdManagerState {
   }) {
     return AdManagerState(
       isAppOpenAdLoaded: isAppOpenAdLoaded ?? this.isAppOpenAdLoaded,
-      isInterstitialAdLoaded: isInterstitialAdLoaded ?? this.isInterstitialAdLoaded,
+      isInterstitialAdLoaded:
+          isInterstitialAdLoaded ?? this.isInterstitialAdLoaded,
       lastAppOpenAdShown: lastAppOpenAdShown ?? this.lastAppOpenAdShown,
-      tasbeehCompletionCount: tasbeehCompletionCount ?? this.tasbeehCompletionCount,
+      tasbeehCompletionCount:
+          tasbeehCompletionCount ?? this.tasbeehCompletionCount,
     );
   }
 }
@@ -50,7 +52,9 @@ class AdManagerNotifier extends StateNotifier<AdManagerState> {
   Future<void> _loadAppOpenAd() async {
     try {
       await _adMobService.loadAppOpenAd();
-      state = state.copyWith(isAppOpenAdLoaded: _adMobService.isAppOpenAdAvailable);
+      state = state.copyWith(
+        isAppOpenAdLoaded: _adMobService.isAppOpenAdAvailable,
+      );
     } catch (e) {
       if (kDebugMode) debugPrint('Error loading App Open Ad: $e');
     }
@@ -60,7 +64,9 @@ class AdManagerNotifier extends StateNotifier<AdManagerState> {
   Future<void> _loadInterstitialAd() async {
     try {
       await _adMobService.loadInterstitialAd();
-      state = state.copyWith(isInterstitialAdLoaded: _adMobService.isInterstitialAdAvailable);
+      state = state.copyWith(
+        isInterstitialAdLoaded: _adMobService.isInterstitialAdAvailable,
+      );
     } catch (e) {
       if (kDebugMode) debugPrint('Error loading Interstitial Ad: $e');
     }
@@ -113,7 +119,7 @@ class AdManagerNotifier extends StateNotifier<AdManagerState> {
   }
 
   // Force show app open ad (for testing)
-  Future<void> forceShowAppOpenAd() async {    
+  Future<void> forceShowAppOpenAd() async {
     if (!state.isAppOpenAdLoaded) {
       await _loadAppOpenAd();
       await Future.delayed(const Duration(milliseconds: 500));
@@ -153,9 +159,10 @@ class AdManagerNotifier extends StateNotifier<AdManagerState> {
 }
 
 // Providers
-final adManagerProvider = StateNotifierProvider<AdManagerNotifier, AdManagerState>((ref) {
-  return AdManagerNotifier();
-});
+final adManagerProvider =
+    StateNotifierProvider<AdManagerNotifier, AdManagerState>((ref) {
+      return AdManagerNotifier();
+    });
 
 final shouldShowBannerAdsProvider = Provider<bool>((ref) => true);
 

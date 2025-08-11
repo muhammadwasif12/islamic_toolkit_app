@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.util.Log
 import com.google.android.gms.ads.MobileAds
+import android.os.Build
 
 class MainActivity: FlutterActivity() {
     private val CHANNEL = "com.example.islamic_toolkit_app/widget"
@@ -39,24 +40,31 @@ class MainActivity: FlutterActivity() {
         registerWidgetRefreshReceiver()
     }
 
-    private fun registerWidgetRefreshReceiver() {
-        widgetRefreshReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                if (intent?.action == "com.example.islamic_toolkit_app.WIDGET_REFRESH") {
-                    Log.d(TAG, "🔄 Widget refresh broadcast received")
-                    
-                    // Send message to Flutter to refresh widget data
-                    flutterEngine?.dartExecutor?.binaryMessenger?.let { messenger ->
-                        MethodChannel(messenger, CHANNEL).invokeMethod("onWidgetRefreshRequested", null)
-                    }
+   private fun registerWidgetRefreshReceiver() {
+    widgetRefreshReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == "com.example.islamic_toolkit_app.WIDGET_REFRESH") {
+                Log.d(TAG, "🔄 Widget refresh broadcast received")
+                flutterEngine?.dartExecutor?.binaryMessenger?.let { messenger ->
+                    MethodChannel(messenger, CHANNEL)
+                        .invokeMethod("onWidgetRefreshRequested", null)
                 }
             }
         }
-        
-        val filter = IntentFilter("com.example.islamic_toolkit_app.WIDGET_REFRESH")
-        registerReceiver(widgetRefreshReceiver, filter)
-        Log.d(TAG, "✅ Widget refresh receiver registered")
     }
+
+    val filter = IntentFilter("com.example.islamic_toolkit_app.WIDGET_REFRESH")
+
+    // ✅ Android 13+ ke liye naya flag
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        registerReceiver(widgetRefreshReceiver, filter, Context.RECEIVER_EXPORTED)
+    } else {
+        registerReceiver(widgetRefreshReceiver, filter)
+    }
+
+    Log.d(TAG, "✅ Widget refresh receiver registered")
+}
+
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
