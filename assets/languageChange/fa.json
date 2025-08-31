@@ -147,6 +147,44 @@
   "hijri_calendar": "تقویم هجری",
 
     "hour_format_24": "فرمت ۲۴ ساعته",
-      "hour_format_12": "فرمت ۱۲ ساعته"
+      "hour_format_12": "فرمت ۱۲ ساعته",
+
+      "prayer_notifications": "اعلان‌های نماز",
+  "receive_notifications_before_prayer_times": "۱۰ دقیقه قبل از هر وقت نماز اعلان دریافت کنید",
+  "daily_dua_notifications": "اعلان‌های دعای روزانه",
+  "receive_random_duas_throughout_the_day": "روزانه ۳ بار دعاهای تصادفی دریافت کنید",
+
+  
+  "Notification": "اعلان",
+  "New": "جدید",
+
+
+  "Arabic": "عربی",
+  "Transliteration": "آوانویسی",
+  "Translation": "ترجمه",
+  "Copy": "کپی",
+  "OK": "باشه",
+  "Copied to clipboard": "در کلیپ‌بورد کپی شد",
+
+    "Error loading notifications": "خطا در بارگذاری اعلان‌ها",
+  "Retry": "تلاش مجدد",
+
+    "No notifications yet": "هنوز هیچ اعلان جدیدی نیست",
+  "You'll see your notifications here when they arrive": "وقتی اعلان‌ها برسند، اینجا نمایش داده می‌شوند",
+
+
+   "Notifications": "اعلان‌ها",
+  "Mark All Read": "علامت‌گذاری همه به عنوان خوانده‌شده",
+  "Clear All": "پاک کردن همه",
+  "All notifications marked as read": "همه اعلان‌ها به عنوان خوانده‌شده علامت‌گذاری شدند",
+  "Clear All Notifications": "پاک کردن همه اعلان‌ها",
+  "Are you sure you want to clear all notifications? This action cannot be undone.": "آیا مطمئن هستید که می‌خواهید همه اعلان‌ها را پاک کنید؟ این عمل قابل بازگشت نیست.",
+  "Cancel": "لغو",
+  "All notifications cleared": "همه اعلان‌ها پاک شدند",
+
+  "Today": "امروز",
+  "Yesterday": "دیروز"
+
+
 
 }

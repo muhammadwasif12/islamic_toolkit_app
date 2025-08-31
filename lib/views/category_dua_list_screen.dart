@@ -27,10 +27,11 @@ class CategoryDuaListScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DuaDetailScreen(
-                    initialIndex: index,
-                    category: category,
-                  ),
+                  builder:
+                      (context) => DuaDetailScreen(
+                        initialIndex: index,
+                        category: category,
+                      ),
                 ),
               );
             },

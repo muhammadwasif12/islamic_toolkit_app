@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin") 
+    id("com.google.gms.google-services")
+
 }
 
 android {
@@ -43,7 +45,11 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
         // Google Mobile Ads SDK (AdMob)
     implementation("com.google.android.gms:play-services-ads:23.1.0")
+   // ✅ Firebase BoM (always required for Firebase libs)
+    implementation(platform("com.google.firebase:firebase-bom:34.1.0"))
 
+    // ✅ Sirf FCM (Firebase Cloud Messaging)
+    implementation("com.google.firebase:firebase-messaging")
 
 }
 

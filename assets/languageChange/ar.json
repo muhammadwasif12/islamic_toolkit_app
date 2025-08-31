@@ -147,7 +147,42 @@
   "tasbeeh_completed": "اكتملت التسبيح",
   "hijri_calendar": "التقويم الهجري",
     "hour_format_24": "تنسيق 24 ساعة",
-      "hour_format_12": "تنسيق 12 ساعة"
+      "hour_format_12": "تنسيق 12 ساعة",
+
+      "prayer_notifications": "إشعارات الصلاة",
+  "receive_notifications_before_prayer_times": "استلم إشعارات قبل 10 دقائق من كل وقت صلاة",
+  "daily_dua_notifications": "إشعارات الدعاء اليومي",
+  "receive_random_duas_throughout_the_day": "استلم أدعية عشوائية 3 مرات خلال اليوم",
+
+   "Notification": "إشعار",
+  "New": "جديد",
+
+
+    "Arabic": "العربية",
+  "Transliteration": "النقل الصوتي",
+  "Translation": "الترجمة",
+  "Copy": "نسخ",
+  "OK": "موافق",
+  "Copied to clipboard": "تم النسخ إلى الحافظة",
+
+   "Error loading notifications": "خطأ في تحميل الإشعارات",
+  "Retry": "إعادة المحاولة",
+
+  "No notifications yet": "لا توجد إشعارات بعد",
+  "You'll see your notifications here when they arrive": "سترى إشعاراتك هنا عند وصولها",
+
+
+    "Notifications": "الإشعارات",
+  "Mark All Read": "وضع علامة مقروء للجميع",
+  "Clear All": "مسح الكل",
+  "All notifications marked as read": "تم وضع علامة مقروء على جميع الإشعارات",
+  "Clear All Notifications": "مسح جميع الإشعارات",
+  "Are you sure you want to clear all notifications? This action cannot be undone.": "هل أنت متأكد أنك تريد مسح جميع الإشعارات؟ هذا الإجراء لا يمكن التراجع عنه.",
+  "Cancel": "إلغاء",
+  "All notifications cleared": "تم مسح جميع الإشعارات",
+
+   "Today": "اليوم",
+  "Yesterday": "أمس"
 
 
 

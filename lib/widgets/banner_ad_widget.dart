@@ -1,27 +1,15 @@
+// lib/widgets/banner_ad_widget.dart - Simplified Version
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../services/admob_service.dart';
 
 class BannerAdWidget extends StatefulWidget {
   final AdSize adSize;
   final EdgeInsetsGeometry? margin;
-  final BorderRadiusGeometry? borderRadius;
-  final Color? backgroundColor;
-  final bool showCloseButton;
-  final String? dismissKey;
-  final Duration? dismissDuration;
 
-  const BannerAdWidget({
-    super.key,
-    this.adSize = AdSize.banner,
-    this.margin,
-    this.borderRadius,
-    this.backgroundColor,
-    this.showCloseButton = true,
-    this.dismissKey,
-    this.dismissDuration = const Duration(minutes: 30),
-  });
+  const BannerAdWidget({super.key, this.adSize = AdSize.banner, this.margin});
 
   @override
   State<BannerAdWidget> createState() => _BannerAdWidgetState();
@@ -30,95 +18,89 @@ class BannerAdWidget extends StatefulWidget {
 class _BannerAdWidgetState extends State<BannerAdWidget> {
   BannerAd? _bannerAd;
   bool _isAdLoaded = false;
-  bool _isAdLoading = false;
-  bool _isDismissed = false;
+  bool _isLoading = false;
+  int _loadAttempts = 0;
+  static const int _maxLoadAttempts = 3;
 
   @override
   void initState() {
     super.initState();
-    _checkDismissStatus();
+    // Small delay to ensure AdMob is initialized
+    Future.delayed(const Duration(milliseconds: 200), () {
+      if (mounted) {
+        _loadBannerAd();
+      }
+    });
   }
 
-  Future<void> _checkDismissStatus() async {
-    if (widget.dismissKey == null) {
-      _loadBannerAd();
+  void _loadBannerAd() async {
+    if (_isLoading || _loadAttempts >= _maxLoadAttempts) return;
+
+    // Check if AdMob is initialized
+    if (!AdMobService.isInitialized) {
+      if (kDebugMode) print('AdMob not initialized yet');
       return;
     }
 
-    final prefs = await SharedPreferences.getInstance();
-    final dismissedTime = prefs.getInt('banner_dismissed_${widget.dismissKey}');
-
-    if (dismissedTime != null) {
-      final dismissedDateTime = DateTime.fromMillisecondsSinceEpoch(
-        dismissedTime,
-      );
-      final now = DateTime.now();
-
-      if (widget.dismissDuration != null &&
-          now.difference(dismissedDateTime) < widget.dismissDuration!) {
-        setState(() {
-          _isDismissed = true;
-        });
-        return;
-      } else {
-        await prefs.remove('banner_dismissed_${widget.dismissKey}');
-      }
+    final adUnitId = AdMobService.instance.bannerAdUnitId;
+    if (adUnitId.isEmpty) {
+      if (kDebugMode) print('Banner Ad Unit ID is empty');
+      return;
     }
 
-    _loadBannerAd();
-  }
+    _isLoading = true;
+    _loadAttempts++;
 
-  void _loadBannerAd() {
-    if (_isAdLoading || _bannerAd != null || _isDismissed) return;
-
-    _isAdLoading = true;
-
-    _bannerAd = BannerAd(
-      adUnitId: AdMobService.instance.bannerAdUnitId,
-      size: widget.adSize,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          if (mounted) {
-            setState(() {
-              _isAdLoaded = true;
-              _isAdLoading = false;
-            });
-          }
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          if (mounted) {
-            setState(() {
-              _bannerAd = null;
-              _isAdLoaded = false;
-              _isAdLoading = false;
-            });
-          }
-        },
-        onAdOpened: (ad) {},
-        onAdClosed: (ad) {},
-      ),
-    );
-
-    _bannerAd!.load();
-  }
-
-  Future<void> _dismissAd() async {
-    if (widget.dismissKey != null) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt(
-        'banner_dismissed_${widget.dismissKey}',
-        DateTime.now().millisecondsSinceEpoch,
-      );
+    if (kDebugMode) {
+      print('Loading Banner Ad (Attempt $_loadAttempts) with ID: $adUnitId');
     }
 
-    setState(() {
-      _isDismissed = true;
-    });
-
+    // Dispose previous ad
     _bannerAd?.dispose();
     _bannerAd = null;
+
+    try {
+      _bannerAd = BannerAd(
+        adUnitId: adUnitId,
+        size: widget.adSize,
+        request: const AdRequest(),
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            if (kDebugMode) print('✅ Banner Ad loaded successfully');
+            if (mounted) {
+              setState(() {
+                _isAdLoaded = true;
+                _isLoading = false;
+              });
+            }
+          },
+          onAdFailedToLoad: (ad, error) {
+            if (kDebugMode) {
+              print('❌ Banner Ad failed: ${error.message} (${error.code})');
+            }
+            ad.dispose();
+            if (mounted) {
+              setState(() {
+                _isAdLoaded = false;
+                _isLoading = false;
+              });
+              
+              // Retry with delay if attempts remaining
+              if (_loadAttempts < _maxLoadAttempts) {
+                Future.delayed(const Duration(seconds: 5), () {
+                  if (mounted) _loadBannerAd();
+                });
+              }
+            }
+          },
+        ),
+      );
+
+      await _bannerAd!.load();
+    } catch (e) {
+      if (kDebugMode) print('Banner Ad exception: $e');
+      _isLoading = false;
+    }
   }
 
   @override
@@ -129,95 +111,67 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (_isDismissed || !_isAdLoaded || _bannerAd == null) {
-      return const SizedBox.shrink();
+    // Show actual ad if loaded
+    if (_isAdLoaded && _bannerAd != null) {
+      return Container(
+        margin: widget.margin,
+        width: widget.adSize.width.toDouble(),
+        height: widget.adSize.height.toDouble(),
+        alignment: Alignment.center,
+        child: AdWidget(ad: _bannerAd!),
+      );
     }
 
-    return Container(
-      margin: widget.margin,
-      decoration: BoxDecoration(
-        color: widget.backgroundColor ?? Colors.transparent,
-        borderRadius: widget.borderRadius,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: widget.borderRadius ?? BorderRadius.zero,
-            child: SizedBox(
-              width: widget.adSize.width.toDouble(),
-              height: widget.adSize.height.toDouble(),
-              child: AdWidget(ad: _bannerAd!),
-            ),
-          ),
-          if (widget.showCloseButton)
-            Positioned(
-              top: 4,
-              right: 4,
-              child: GestureDetector(
-                onTap: _dismissAd,
-                child: Container(
-                  width: 24,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.6),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.close, color: Colors.white, size: 16),
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
+    // Show nothing if ad not loaded (clean approach)
+    return const SizedBox.shrink();
   }
 }
 
-// Home Screen Banner Ad
+// Preset banner ads for different screens
 class HomeBannerAd extends StatelessWidget {
   const HomeBannerAd({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BannerAdWidget(
+    return const BannerAdWidget(
       adSize: AdSize.banner,
-      margin: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).size.width * 0.04,
-        vertical: 8,
-      ),
-      borderRadius: BorderRadius.circular(12),
-      backgroundColor: Colors.white.withOpacity(0.9),
-      showCloseButton: true,
-      dismissKey: 'home_banner',
-      dismissDuration: const Duration(minutes: 30),
+      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
     );
   }
 }
 
-// Settings Screen Large Banner Ad
 class SettingsLargeBannerAd extends StatelessWidget {
   const SettingsLargeBannerAd({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BannerAdWidget(
+    return const BannerAdWidget(
       adSize: AdSize.largeBanner,
-      margin: const EdgeInsets.fromLTRB(12, 16, 12, 16),
-      borderRadius: BorderRadius.circular(12),
-      backgroundColor: Colors.white,
-      showCloseButton: true,
-      dismissKey: 'settings_large_banner',
-      dismissDuration: const Duration(minutes: 30),
+      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     );
   }
 }
 
+class DuaDetailBannerAd extends StatelessWidget {
+  const DuaDetailBannerAd({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return const BannerAdWidget(
+      adSize: AdSize.banner,
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    );
+  }
+}
 
+class CounterBannerAd extends StatelessWidget {
+  const CounterBannerAd({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return const BannerAdWidget(
+      adSize: AdSize.banner,
+      margin: EdgeInsets.symmetric(vertical: 8),
+    );
+  }
+}

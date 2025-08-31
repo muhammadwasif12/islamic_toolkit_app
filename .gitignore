@@ -163,3 +163,6 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
 >>>>>>> a45968a9512b8b8ca5580ef7c5f51f6d7a1f646b
+
+.env
+android/app/google-services.json

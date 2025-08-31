@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-final timeZoneProvider = StateNotifierProvider<TimeZoneNotifier, tz.Location>((ref) {
+final timeZoneProvider = StateNotifierProvider<TimeZoneNotifier, tz.Location>((
+  ref,
+) {
   return TimeZoneNotifier();
 });
 
@@ -17,7 +19,7 @@ class TimeZoneNotifier extends StateNotifier<tz.Location> {
   void _loadTimeZone() async {
     final prefs = await SharedPreferences.getInstance();
     final savedTimeZone = prefs.getString(_key);
-    
+
     if (savedTimeZone != null) {
       try {
         state = tz.getLocation(savedTimeZone);
@@ -34,7 +36,7 @@ class TimeZoneNotifier extends StateNotifier<tz.Location> {
     try {
       final newTimeZone = tz.getLocation(timeZoneName);
       state = newTimeZone;
-      
+
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(_key, timeZoneName);
     } catch (e) {

@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final use24HourFormatProvider =
-    StateNotifierProvider<TimeFormatNotifier, bool>((ref) {
-  return TimeFormatNotifier();
-});
+final use24HourFormatProvider = StateNotifierProvider<TimeFormatNotifier, bool>(
+  (ref) {
+    return TimeFormatNotifier();
+  },
+);
 
 class TimeFormatNotifier extends StateNotifier<bool> {
   static const _key = 'use_24_hour_format';

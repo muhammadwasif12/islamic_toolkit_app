@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:shared_preferences/shared_preferences.dart'; // 🔥 ADD THIS IMPORT
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
@@ -172,15 +173,50 @@ class NotificationService {
         matchDateTimeComponents: DateTimeComponents.time,
       );
 
-      debugPrint(' Successfully scheduled $prayerName notification (ID: $id)');
+      debugPrint('✅ Successfully scheduled $prayerName notification (ID: $id)');
     } catch (e) {
-      debugPrint(' Failed to schedule $prayerName notification: $e');
+      debugPrint('❌ Failed to schedule $prayerName notification: $e');
     }
   }
 
+  // 🔥 NEW METHOD: Check settings before scheduling duas
+  static Future<void> scheduleDailyDuasIfEnabled() async {
+    try {
+      // Check if dua notifications are enabled using SharedPreferences directly
+      final prefs = await SharedPreferences.getInstance();
+      final duaEnabled = prefs.getBool('dua_notifications_enabled') ?? true;
+
+      if (duaEnabled) {
+        await scheduleDailyDuas();
+        debugPrint('🔔 Daily duas scheduled - user setting enabled');
+      } else {
+        await cancelDuaNotifications();
+        debugPrint('🔕 Daily duas disabled by user settings');
+      }
+    } catch (e) {
+      debugPrint('❌ Error checking dua notification settings: $e');
+      // Fallback - don't schedule if error occurs
+      await cancelDuaNotifications();
+    }
+  }
+
+  // 🔥 UPDATED: Check settings before scheduling
   static Future<void> scheduleDailyDuas() async {
+    // Check settings first
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final duaEnabled = prefs.getBool('dua_notifications_enabled') ?? true;
+
+      if (!duaEnabled) {
+        debugPrint('🔕 Dua notifications disabled by user - not scheduling');
+        return;
+      }
+    } catch (e) {
+      debugPrint('⚠️ Error checking dua settings: $e');
+    }
+
     if (!await _checkPermissions()) {
-      debugPrint(' Notification permissions not granted for duas');
+      debugPrint('❌ Notification permissions not granted for duas');
       return;
     }
 
@@ -190,9 +226,7 @@ class NotificationService {
       final times = [7, 12, 15]; // 7 AM, 12 PM, 3 PM
       final now = tz.TZDateTime.now(tz.local);
 
-      final jsonString = await rootBundle.loadString(
-        'assets/json/duas.json',
-      );
+      final jsonString = await rootBundle.loadString('assets/json/duas.json');
       final data = jsonDecode(jsonString) as Map<String, dynamic>;
 
       final allDuas =
@@ -201,7 +235,7 @@ class NotificationService {
               .toList();
 
       if (allDuas.isEmpty) {
-        debugPrint(' No duas found in JSON file');
+        debugPrint('❌ No duas found in JSON file');
         return;
       }
 
@@ -244,9 +278,9 @@ class NotificationService {
         );
       }
 
-      debugPrint(' Daily duas scheduled successfully');
+      debugPrint('✅ Daily duas scheduled successfully');
     } catch (e) {
-      debugPrint(' Error scheduling daily duas: $e');
+      debugPrint('❌ Error scheduling daily duas: $e');
     }
   }
 
@@ -254,19 +288,19 @@ class NotificationService {
     for (int i = 101; i <= 105; i++) {
       await _notificationsPlugin.cancel(i);
     }
-    debugPrint('Prayer notifications cancelled');
+    debugPrint('🔕 Prayer notifications cancelled');
   }
 
   static Future<void> cancelDuaNotifications() async {
     for (int i = 200; i <= 202; i++) {
       await _notificationsPlugin.cancel(i);
     }
-    debugPrint(' Dua notifications cancelled');
+    debugPrint('🔕 Dua notifications cancelled');
   }
 
   static Future<void> cancelAllNotifications() async {
     await _notificationsPlugin.cancelAll();
-    debugPrint('All notifications cancelled');
+    debugPrint('🔕 All notifications cancelled');
   }
 
   static Future<bool> _checkPermissions() async {
@@ -282,8 +316,8 @@ class NotificationService {
       final bool exactAlarmPermission =
           await androidImpl.canScheduleExactNotifications() ?? false;
 
-      debugPrint('Notification enabled: $notificationEnabled');
-      debugPrint(' Exact alarm permission: $exactAlarmPermission');
+      debugPrint('📱 Notification enabled: $notificationEnabled');
+      debugPrint('⏰ Exact alarm permission: $exactAlarmPermission');
 
       return notificationEnabled && exactAlarmPermission;
     }
@@ -291,13 +325,13 @@ class NotificationService {
     return false;
   }
 
-  //  IMPROVED: More detailed debugging
+  // ✅ IMPROVED: More detailed debugging
   static Future<void> getPendingNotifications() async {
     try {
       final List<PendingNotificationRequest> pending =
           await _notificationsPlugin.pendingNotificationRequests();
 
-      debugPrint(' Pending notifications: ${pending.length}');
+      debugPrint('📋 Pending notifications: ${pending.length}');
       if (pending.isEmpty) {
         debugPrint('   No pending notifications found');
       } else {
@@ -308,11 +342,11 @@ class NotificationService {
         }
       }
     } catch (e) {
-      debugPrint(' Error getting pending notifications: $e');
+      debugPrint('❌ Error getting pending notifications: $e');
     }
   }
 
-  //  NEW: Manual permission request method
+  // ✅ NEW: Manual permission request method
   static Future<bool> requestPermissions() async {
     await _requestNotificationPermissions();
     return await _checkPermissions();

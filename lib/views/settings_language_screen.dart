@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:islamic_toolkit_app/view_model/language_provider.dart';
-import 'package:islamic_toolkit_app/widgets/app_rebuilder.dart';
+import 'package:islamic_toolkit_app/utils/app_rebuilder.dart';
 
 class LanguageScreen extends ConsumerWidget {
   const LanguageScreen({super.key});

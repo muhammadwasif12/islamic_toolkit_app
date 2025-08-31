@@ -8,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart'; // <-- added this
 import 'package:geolocator/geolocator.dart';
 
 import '../widgets/custom_app_bar.dart';
-import '../widgets/surah_bottom_sheet.dart';
+import '../utils/surah_bottom_sheet.dart';
 
 class QiblaScreen extends StatefulWidget {
   const QiblaScreen({super.key});

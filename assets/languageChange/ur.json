@@ -146,7 +146,46 @@
   "tasbeeh_completed": "تسبیح مکمل ہوئی",
   "hijri_calendar": "ہجری کیلنڈر",
     "hour_format_24": "24-گھنٹے کی وضع",
-      "hour_format_12": "12-گھنٹے کی وضع"
+      "hour_format_12": "12-گھنٹے کی وضع",
+
+      "prayer_notifications": "نماز کے نوٹیفکیشن",
+  "receive_notifications_before_prayer_times": "ہر نماز سے 10 منٹ پہلے نوٹیفکیشن حاصل کریں",
+  "daily_dua_notifications": "روزانہ دعا کے نوٹیفکیشن",
+  "receive_random_duas_throughout_the_day": "دن میں 3 بار مختلف دعائیں موصول کریں",
+
+  
+  "Notification": "اطلاع",
+  "New": "نیا",
+
+
+    "Arabic": "عربی",
+  "Transliteration": "آواز کی صورت",
+  "Translation": "ترجمہ",
+  "Copy": "کاپی",
+  "OK": "ٹھیک ہے",
+  "Copied to clipboard": "کاپی ہوگیا",
+
+
+  "Error loading notifications": "اطلاعات لوڈ کرنے میں خرابی",
+  "Retry": "دوبارہ کوشش کریں",
+
+   "No notifications yet": "ابھی تک کوئی اطلاع نہیں",
+  "You'll see your notifications here when they arrive": "جب آپ کی اطلاعات آئیں گی تو وہ یہاں نظر آئیں گی",
+
+
+    "Notifications": "اطلاعات",
+  "Mark All Read": "سب کو پڑھا ہوا بنائیں",
+  "Clear All": "سب صاف کریں",
+  "All notifications marked as read": "تمام اطلاعات کو پڑھا ہوا نشان زد کر دیا گیا ہے",
+  "Clear All Notifications": "تمام اطلاعات صاف کریں",
+  "Are you sure you want to clear all notifications? This action cannot be undone.": "کیا آپ واقعی تمام اطلاعات صاف کرنا چاہتے ہیں؟ یہ عمل واپس نہیں لیا جا سکتا۔",
+  "Cancel": "منسوخ کریں",
+  "All notifications cleared": "تمام اطلاعات صاف کر دی گئیں",
+
+
+  
+  "Today": "آج",
+  "Yesterday": "کل"
 
 
 

@@ -1,14 +1,12 @@
+// home_screen.dart - Cleaned with Utils Integration
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:islamic_toolkit_app/widgets/build_hijri_calender.dart';
 import '../models/daily_dua_model.dart';
 import '../models/prayer_times_model.dart';
-import '../services/home_widget_service.dart';
-import '../services/notification_service.dart';
 import '../view_model/daily_dua_provider.dart';
 import '../view_model/prayer_times_provider.dart';
 import '../view_model/time_format_provider.dart';
@@ -20,6 +18,11 @@ import '../widgets/dua_content_widget.dart';
 import '../widgets/formatted_time_widget.dart';
 import '../view_model/ad_manager_provider.dart';
 import '../widgets/banner_ad_widget.dart';
+import '../view_model/notification_history_provider.dart';
+import '../views/notification_history_screen.dart';
+import '../utils/home_screen_utils.dart';
+import '../utils/home_widget_utils.dart';
+import '../utils/home_screen_timer_utils.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -28,64 +31,76 @@ class HomeScreen extends ConsumerStatefulWidget {
   HomeScreenState createState() => HomeScreenState();
 }
 
-class HomeScreenState extends ConsumerState<HomeScreen> {
+class HomeScreenState extends ConsumerState<HomeScreen>
+    with WidgetsBindingObserver {
   Timer? _timer;
+  Timer? _widgetUpdateTimer;
   bool _widgetInitialized = false;
   bool _hasScheduled = false;
+  bool _settingsLoaded = false;
   DateTime? _lastWidgetUpdate;
-  static const platform = MethodChannel(
-    'com.example.islamic_toolkit_app/widget',
-  );
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _startTimer();
     _setupWidgetRefreshHandler();
-    // DELAY WIDGET INITIALIZATION TO AVOID INITIAL BLINK
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        _initializeHomeWidget();
-      }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _waitForSettingsAndInitialize();
     });
+  }
+
+  void _waitForSettingsAndInitialize() async {
+    await HomeScreenUtils.waitForSettingsToLoad();
+
+    if (mounted) {
+      _settingsLoaded = true;
+      print('Settings loaded, ready for scheduling');
+
+      Future.delayed(const Duration(seconds: 1), () {
+        if (mounted) {
+          _initializeHomeWidget();
+        }
+      });
+
+      _startWidgetUpdateTimer();
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    switch (state) {
+      case AppLifecycleState.resumed:
+        _refreshWidgetData();
+
+        // Refresh notification providers when app resumes
+        ref.refresh(notificationHistoryProvider);
+        ref.refresh(unreadNotificationCountProvider);
+        ref.refresh(notificationHistoryNotifierProvider);
+
+        break;
+      case AppLifecycleState.paused:
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.detached:
+      case AppLifecycleState.hidden:
+        break;
+    }
   }
 
   void _setupWidgetRefreshHandler() {
-    platform.setMethodCallHandler((call) async {
-      if (call.method == 'onWidgetRefreshRequested') {
-        debugPrint(' Widget refresh requested from native');
-        await _handleWidgetRefresh();
-      }
-    });
-  }
-
-  Future<void> _handleWidgetRefresh() async {
-    try {
-      debugPrint(' Handling widget refresh...');
-
-      // AVOID FREQUENT REFRESHES - CHECK LAST UPDATE TIME
-      final now = DateTime.now();
-      if (_lastWidgetUpdate != null &&
-          now.difference(_lastWidgetUpdate!).inSeconds < 5) {
-        debugPrint(' Skipping refresh - too recent');
-        return;
-      }
-
-      // Invalidate providers to force fresh data
-      ref.invalidate(prayerTimesProvider);
-      ref.invalidate(dailyDuaProvider);
-
-      // Wait a bit for providers to refresh
-      await Future.delayed(const Duration(milliseconds: 500));
-
-      // Force widget update
-      await HomeWidgetService.manualUpdate();
-      _lastWidgetUpdate = now;
-
-      debugPrint(' Widget refresh completed');
-    } catch (e) {
-      debugPrint(' Error handling widget refresh: $e');
-    }
+    HomeWidgetUtils.setupWidgetRefreshHandler(
+      onRefreshRequested: () async {
+        await HomeWidgetUtils.handleWidgetRefresh(
+          ref: ref,
+          lastUpdate: _lastWidgetUpdate,
+        );
+        _lastWidgetUpdate = DateTime.now();
+      },
+    );
   }
 
   void _startTimer() {
@@ -93,65 +108,53 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
       if (mounted) {
         ref.read(currentTimeProvider.notifier).state = DateTime.now();
 
-        // REDUCE WIDGET UPDATE FREQUENCY - ONLY EVERY 30 SECONDS
-        if (DateTime.now().second % 30 == 0 && _widgetInitialized) {
+        if (HomeScreenTimerUtils.shouldUpdateWidget(DateTime.now()) &&
+            _widgetInitialized) {
           _updateHomeWidgetSimple();
         }
       }
     });
   }
 
+  void _startWidgetUpdateTimer() {
+    _widgetUpdateTimer = Timer.periodic(const Duration(minutes: 10), (timer) {
+      if (mounted && _widgetInitialized) {
+        _refreshWidgetData();
+      }
+    });
+  }
+
+  void _refreshWidgetData() async {
+    _lastWidgetUpdate = await HomeWidgetUtils.refreshWidgetData(
+      lastUpdate: _lastWidgetUpdate,
+    );
+  }
+
   void _initializeHomeWidget() async {
     if (!_widgetInitialized) {
-      debugPrint(' Initializing widget...');
-      await HomeWidgetService.initialize(ref: ref);
-      _widgetInitialized = true;
-
-      // REDUCE DELAY AND AVOID IMMEDIATE UPDATE
-      await Future.delayed(const Duration(milliseconds: 800));
-      await HomeWidgetService.manualUpdate();
+      _widgetInitialized = await HomeWidgetUtils.initializeWidget(ref: ref);
       _lastWidgetUpdate = DateTime.now();
     }
   }
 
   void _updateHomeWidgetSimple() async {
     if (_widgetInitialized) {
-      final now = DateTime.now();
-
-      // PREVENT TOO FREQUENT UPDATES
-      if (_lastWidgetUpdate != null &&
-          now.difference(_lastWidgetUpdate!).inSeconds < 10) {
-        return;
-      }
-
-      await HomeWidgetService.manualUpdate();
-      _lastWidgetUpdate = now;
+      await HomeWidgetUtils.updateWidgetSimple(lastUpdate: _lastWidgetUpdate);
+      _lastWidgetUpdate = DateTime.now();
     }
   }
 
   void _scheduleNotifications(PrayerTimesModel prayerTimes) async {
-    if (_hasScheduled) {
-      return;
-    }
+    if (_hasScheduled) return;
 
-    try {
+    final success = await HomeScreenUtils.scheduleNotifications(
+      ref: ref,
+      prayerTimes: prayerTimes,
+      settingsLoaded: _settingsLoaded,
+    );
+
+    if (success) {
       _hasScheduled = true;
-
-      final prayerTimesMap = {
-        'fajr': prayerTimes.fajr,
-        'dhuhr': prayerTimes.dhuhr,
-        'asr': prayerTimes.asr,
-        'maghrib': prayerTimes.maghrib,
-        'isha': prayerTimes.isha,
-      };
-
-      await NotificationService.schedulePrayerNotifications(prayerTimesMap);
-      await NotificationService.getPendingNotifications();
-
-      debugPrint(' Prayer notifications scheduled successfully');
-    } catch (e) {
-      debugPrint(' Error scheduling notifications: $e');
-      _hasScheduled = false;
     }
   }
 
@@ -162,10 +165,20 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
+  //  HomeScreenState to manually refresh notifications
+  void _refreshNotifications() {
+    if (mounted) {
+      ref.refresh(notificationHistoryProvider);
+      ref.refresh(unreadNotificationCountProvider);
+      ref.refresh(notificationHistoryNotifierProvider);
+    }
+  }
+
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _timer?.cancel();
-    HomeWidgetService.dispose();
+    _widgetUpdateTimer?.cancel();
     super.dispose();
   }
 
@@ -179,8 +192,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
           .watch(prayerTimesProvider)
           .when(
             data: (prayerTimes) {
-              // Schedule notifications only once
-              if (!_hasScheduled && prayerTimes != null) {
+              if (!_hasScheduled && prayerTimes != null && _settingsLoaded) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   _scheduleNotifications(prayerTimes);
                 });
@@ -236,7 +248,10 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
               left: 0,
               right: 0,
               child: Container(
-                height: _getBottomContainerHeight(screenHeight),
+                height: HomeScreenUtils.getBottomContainerHeight(
+                  screenHeight,
+                  showBannerAd,
+                ),
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -255,14 +270,12 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
                 child: Column(
                   children: [
                     Expanded(child: _buildDynamicDuaSection(screenHeight)),
-                    // Banner Ad at Bottom (if enabled)
                     if (showBannerAd)
                       Container(
+                        height: 60,
                         padding: const EdgeInsets.only(bottom: 16),
                         child: const BannerAdWidget(
                           margin: EdgeInsets.symmetric(horizontal: 16),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                          backgroundColor: Color(0xffFDFCF7),
                         ),
                       ),
                   ],
@@ -275,68 +288,142 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  double _getBottomContainerHeight(double screenHeight) {
-    if (screenHeight < 600) {
-      return screenHeight * 0.50;
-    } else if (screenHeight < 750) {
-      return screenHeight * 0.53;
-    } else {
-      return screenHeight * 0.55;
-    }
-  }
-
   Widget _buildHeader(PrayerTimesModel prayerTimes) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).size.width * 0.04,
-        vertical: MediaQuery.of(context).size.height * 0.02,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () => _showHijriCalendarDialog(context),
-                  child: Text(
-                    getLocalizedHijriDate(prayerTimes.hijriDate),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: _getResponsiveFontSize(16),
-                      fontWeight: FontWeight.bold,
+    return Consumer(
+      builder: (context, ref, child) {
+        final unreadCountAsync = ref.watch(unreadNotificationCountProvider);
+
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.04,
+            vertical: MediaQuery.of(context).size.height * 0.02,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () => _showHijriCalendarDialog(context),
+                      child: Text(
+                        HomeScreenUtils.getLocalizedHijriDate(
+                          prayerTimes.hijriDate,
+                        ),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: HomeScreenUtils.getResponsiveFontSize(
+                            context,
+                            16,
+                          ),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.005,
+                    ),
+                    Text(
+                      prayerTimes.location,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: HomeScreenUtils.getResponsiveFontSize(
+                          context,
+                          14,
+                        ),
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.005),
-                Text(
-                  prayerTimes.location,
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: _getResponsiveFontSize(14),
-                  ),
-                  overflow: TextOverflow.ellipsis,
+              ),
+
+              // Notification Bell with Badge
+              GestureDetector(
+                onTap: () {
+                  // Refresh notifications before navigating
+                  _refreshNotifications();
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationHistoryScreen(),
+                    ),
+                  );
+                },
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Image.asset(
+                      'assets/home_images/bell.png',
+                      fit: BoxFit.contain,
+                      width: HomeScreenUtils.getResponsiveIconSize(context, 24),
+                      height: HomeScreenUtils.getResponsiveIconSize(
+                        context,
+                        24,
+                      ),
+                      filterQuality: FilterQuality.high,
+                    ),
+
+                    // Notification Badge
+                    unreadCountAsync.when(
+                      data: (unreadCount) {
+                        if (unreadCount > 0) {
+                          return Positioned(
+                            right: -6,
+                            top: -6,
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              constraints: const BoxConstraints(
+                                minWidth: 18,
+                                minHeight: 18,
+                              ),
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  unreadCount > 99
+                                      ? '99+'
+                                      : unreadCount.toString(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
+                      loading: () => const SizedBox.shrink(),
+                      error: (_, __) => const SizedBox.shrink(),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Image.asset(
-            'assets/home_images/bell.png',
-            fit: BoxFit.contain,
-            width: _getResponsiveIconSize(24),
-            height: _getResponsiveIconSize(24),
-            filterQuality: FilterQuality.high,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
   Widget _buildMainPrayerDisplay(PrayerTimesModel prayerTimes) {
-    final timeLeft = prayerTimes.timeToNextPrayer;
-    final hours = timeLeft.inHours;
-    final minutes = timeLeft.inMinutes % 60;
+    final timeComponents = HomeScreenTimerUtils.getTimeComponents(
+      prayerTimes.timeToNextPrayer,
+    );
     final use24Hour = ref.watch(use24HourFormatProvider);
 
     return Padding(
@@ -348,10 +435,10 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
           _buildFormattedTime(prayerTimes.currentTime, use24Hour),
           SizedBox(height: MediaQuery.of(context).size.height * 0.005),
           Text(
-            "${prayerTimes.nextPrayer.tr()} $hours ${'hour'.tr()} $minutes ${'min'.tr()} ${'left'.tr()}",
+            "${prayerTimes.nextPrayer.tr()} ${timeComponents['hours']} ${'hour'.tr()} ${timeComponents['minutes']} ${'min'.tr()} ${'left'.tr()}",
             style: TextStyle(
               color: Colors.white,
-              fontSize: _getResponsiveFontSize(12),
+              fontSize: HomeScreenUtils.getResponsiveFontSize(context, 12),
             ),
           ),
         ],
@@ -363,7 +450,8 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
     return FormattedTimeWidget(
       time: time,
       use24Hour: use24Hour,
-      getResponsiveFontSize: _getResponsiveFontSize,
+      getResponsiveFontSize:
+          (size) => HomeScreenUtils.getResponsiveFontSize(context, size),
     );
   }
 
@@ -502,37 +590,16 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
     return DuaContentWidget(
       dua: dua,
       screenHeight: screenHeight,
-      getResponsiveFontSize: _getResponsiveFontSize,
+      getResponsiveFontSize:
+          (size) => HomeScreenUtils.getResponsiveFontSize(context, size),
     );
   }
 
   Widget _buildFallbackDua(double screenHeight) {
     return FallbackDuaWidget(
       screenHeight: screenHeight,
-      getResponsiveFontSize: _getResponsiveFontSize,
+      getResponsiveFontSize:
+          (size) => HomeScreenUtils.getResponsiveFontSize(context, size),
     );
-  }
-
-  // Helper methods for responsive sizing
-  double _getResponsiveFontSize(double baseFontSize) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    if (screenHeight < 600) {
-      return baseFontSize * 0.85;
-    } else if (screenHeight < 750) {
-      return baseFontSize * 0.95;
-    } else {
-      return baseFontSize;
-    }
-  }
-
-  double _getResponsiveIconSize(double baseSize) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    if (screenHeight < 600) {
-      return baseSize * 0.8;
-    } else if (screenHeight < 750) {
-      return baseSize * 0.9;
-    } else {
-      return baseSize;
-    }
   }
 }

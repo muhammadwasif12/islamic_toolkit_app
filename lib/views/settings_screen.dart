@@ -157,7 +157,7 @@ class SettingsScreen extends ConsumerWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     color: Colors.grey.withOpacity(0.2),
                   ),
-                  
+
                   // Use Large Banner instead of Medium Rectangle for better fit
                   const SettingsLargeBannerAd(),
                 ],

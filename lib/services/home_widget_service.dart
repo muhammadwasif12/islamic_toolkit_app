@@ -13,6 +13,7 @@ class HomeWidgetService {
   static WidgetRef? _ref;
   static bool _isInitialized = false;
   static int _duaIndex = 0;
+  static DateTime? _lastUpdateTime;
 
   // Short Arabic-only duas for widget
   static final List<String> shortArabicDuas = [
@@ -37,13 +38,13 @@ class HomeWidgetService {
   /// 🚀 Initialize HomeWidget Service
   static Future<void> initialize({required WidgetRef ref}) async {
     if (_isInitialized) {
-      debugPrint(' [INIT] Already initialized');
+      debugPrint('🏠 [INIT] Already initialized');
       return;
     }
 
     try {
       _ref = ref;
-      debugPrint('[INIT] Starting HomeWidget initialization...');
+      debugPrint('🏠 [INIT] Starting HomeWidget initialization...');
 
       // Setup widget with proper configuration
       await HomeWidget.setAppGroupId('group.islamic_toolkit_app');
@@ -54,12 +55,12 @@ class HomeWidgetService {
 
       _isInitialized = true;
 
-      // Start periodic updates
+      // Start periodic updates with reduced frequency (15 minutes when app is active)
       startPeriodicUpdates();
 
-      debugPrint('[INIT] HomeWidget initialized successfully');
+      debugPrint('🏠 [INIT] HomeWidget initialized successfully ✅');
     } catch (e) {
-      debugPrint(' [INIT] Initialization failed: $e');
+      debugPrint('🏠❌ [INIT] Initialization failed: $e');
       _isInitialized = false;
     }
   }
@@ -68,30 +69,38 @@ class HomeWidgetService {
   static Future<void> manualUpdate() async {
     if (!_isInitialized || _ref == null) {
       debugPrint(
-        ' [MANUAL] Not ready - Init: $_isInitialized, Ref: ${_ref != null}',
+        '🏠⚠️ [MANUAL] Not ready - Init: $_isInitialized, Ref: ${_ref != null}',
       );
       return;
     }
 
-    debugPrint('[MANUAL] Manual update triggered...');
+    // Avoid too frequent manual updates
+    if (_lastUpdateTime != null &&
+        DateTime.now().difference(_lastUpdateTime!).inSeconds < 5) {
+      debugPrint('🏠⚠️ [MANUAL] Skipping - too frequent update');
+      return;
+    }
+
+    debugPrint('🏠🔄 [MANUAL] Manual update triggered...');
     await _performDataUpdate(force: true);
+    _lastUpdateTime = DateTime.now();
   }
 
   ///  Core Data Update Logic
   static Future<void> _performDataUpdate({bool force = false}) async {
     if (_ref == null) {
-      debugPrint(' [UPDATE] Ref is null');
+      debugPrint('🏠❌ [UPDATE] Ref is null');
       return;
     }
 
     try {
-      debugPrint(' [UPDATE] Getting fresh data...');
+      debugPrint('🏠📊 [UPDATE] Getting fresh data...');
 
       // Force refresh providers if needed
       if (force) {
         _ref!.invalidate(prayerTimesProvider);
         _ref!.invalidate(dailyDuaProvider);
-        await Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 200));
       }
 
       // Get fresh data
@@ -107,17 +116,17 @@ class HomeWidgetService {
             // Use only Arabic text for widget
             duaArabicOnly = dua.arabic;
             debugPrint(
-              '[DUA] Got daily dua Arabic: ${dua.arabic.substring(0, 30)}...',
+              '🏠📿 [DUA] Got daily dua Arabic: ${dua.arabic.substring(0, dua.arabic.length > 30 ? 30 : dua.arabic.length)}...',
             );
           } else {
-            debugPrint('[DUA] Daily dua is null, using fallback');
+            debugPrint('🏠📿 [DUA] Daily dua is null, using fallback');
           }
         },
         loading: () async {
-          debugPrint(' [DUA] Daily dua loading...');
+          debugPrint('🏠⏳ [DUA] Daily dua loading...');
         },
         error: (error, stack) async {
-          debugPrint(' [DUA] Error loading daily dua: $error');
+          debugPrint('🏠❌ [DUA] Error loading daily dua: $error');
         },
       );
 
@@ -126,34 +135,36 @@ class HomeWidgetService {
           duaArabicOnly == shortArabicDuas[_duaIndex]) {
         _duaIndex = (_duaIndex + 1) % shortArabicDuas.length;
         duaArabicOnly = shortArabicDuas[_duaIndex];
-        debugPrint('📿 [DUA] Using fallback Arabic dua index: $_duaIndex');
+        debugPrint('🏠📿 [DUA] Using fallback Arabic dua index: $_duaIndex');
       }
 
       // Handle prayer times
       await prayerTimesAsync.when(
         data: (prayerTimes) async {
           if (prayerTimes != null) {
-            debugPrint(' [PRAYER] Prayer times available');
+            debugPrint('🏠🕌 [PRAYER] Prayer times available');
             await _saveRealPrayerData(prayerTimes, duaArabicOnly);
           } else {
-            debugPrint(' [PRAYER] Prayer times null, using default');
+            debugPrint('🏠🕌 [PRAYER] Prayer times null, using default');
             await _saveDefaultData(duaArabicOnly);
           }
         },
         loading: () async {
-          debugPrint(' [PRAYER] Prayer times loading');
+          debugPrint('🏠⏳ [PRAYER] Prayer times loading');
           await _saveLoadingData(duaArabicOnly);
         },
         error: (error, stack) async {
-          debugPrint(' [PRAYER] Prayer times error: $error');
+          debugPrint('🏠❌ [PRAYER] Prayer times error: $error');
           await _saveDefaultData(duaArabicOnly);
         },
       );
 
       // Force widget update
       await _forceWidgetUpdate();
+
+      debugPrint('🏠✅ [UPDATE] Data update completed successfully');
     } catch (e) {
-      debugPrint(' [UPDATE] Data update failed: $e');
+      debugPrint('🏠❌ [UPDATE] Data update failed: $e');
     }
   }
 
@@ -165,14 +176,14 @@ class HomeWidgetService {
     try {
       final currentTime = DateTime.now();
       final currentPrayer = _getCurrentPrayer(prayerTimes, currentTime);
-      final nextPrayer = _capitalizePrayerName(prayerTimes.nextPrayer); // 🔥 CAPITALIZE
+      final nextPrayer = _capitalizePrayerName(prayerTimes.nextPrayer);
       final timeRemaining = _formatTimeLeft(prayerTimes.timeToNextPrayer);
 
-      debugPrint(' [SAVE] Saving real prayer data:');
-      debugPrint('   Current: $currentPrayer');
-      debugPrint('   Next: $nextPrayer');
-      debugPrint('   Time: $timeRemaining');
-      debugPrint('   Dua Arabic: ${duaArabic.substring(0, 30)}...');
+      debugPrint('🏠💾 [SAVE] Saving real prayer data:');
+      debugPrint('🏠   Current: $currentPrayer');
+      debugPrint('🏠   Next: $nextPrayer');
+      debugPrint('🏠   Time: $timeRemaining');
+      debugPrint('🏠   Location: ${prayerTimes.location}');
 
       // Save with multiple key formats for maximum compatibility
       final dataMap = {
@@ -183,6 +194,8 @@ class HomeWidgetService {
         'flutter.next_prayer_time': timeRemaining,
         'flutter.random_dua': duaArabic, // Only Arabic text
         'flutter.next_prayer': '$nextPrayer in $timeRemaining',
+        'flutter.location': prayerTimes.location,
+        'flutter.last_update': DateTime.now().toIso8601String(),
 
         // Backup keys without prefix
         'app_name': 'Islamic Toolkit',
@@ -192,6 +205,8 @@ class HomeWidgetService {
         'random_dua': duaArabic, // Only Arabic text
         'next_prayer': '$nextPrayer in $timeRemaining',
         'prayer_status': 'Current: $currentPrayer',
+        'location': prayerTimes.location,
+        'last_update': DateTime.now().toIso8601String(),
       };
 
       // Save each key with error handling
@@ -199,42 +214,48 @@ class HomeWidgetService {
         try {
           await HomeWidget.saveWidgetData<String>(key, dataMap[key]!);
         } catch (e) {
-          debugPrint('❌ [SAVE] Failed to save $key: $e');
+          debugPrint('🏠❌ [SAVE] Failed to save $key: $e');
         }
       }
 
-      debugPrint('[SAVE] Real prayer data saved successfully');
+      debugPrint('🏠✅ [SAVE] Real prayer data saved successfully');
     } catch (e) {
-      debugPrint(' [SAVE] Error saving prayer data: $e');
+      debugPrint('🏠❌ [SAVE] Error saving prayer data: $e');
     }
   }
 
   ///  Save Default Data
   static Future<void> _saveDefaultData(String duaArabic) async {
     try {
+      final now = DateTime.now();
+      final timeString =
+          '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+
       final dataMap = {
         'flutter.app_name': 'Islamic Toolkit',
         'flutter.current_prayer': 'Maghrib',
-        'flutter.next_prayer_name': 'Isha', // Already capitalized
+        'flutter.next_prayer_name': 'Isha',
         'flutter.next_prayer_time': '01:45:30',
         'flutter.random_dua': duaArabic,
         'flutter.next_prayer': 'Isha in 01:45:30',
+        'flutter.last_update': DateTime.now().toIso8601String(),
 
         'app_name': 'Islamic Toolkit',
         'current_prayer': 'Maghrib',
-        'next_prayer_name': 'Isha', // Already capitalized
+        'next_prayer_name': 'Isha',
         'next_prayer_time': '01:45:30',
         'random_dua': duaArabic,
         'next_prayer': 'Isha in 01:45:30',
+        'last_update': DateTime.now().toIso8601String(),
       };
 
       for (String key in dataMap.keys) {
         await HomeWidget.saveWidgetData<String>(key, dataMap[key]!);
       }
 
-      debugPrint(' [DEFAULT] Default data saved');
+      debugPrint('🏠📋 [DEFAULT] Default data saved');
     } catch (e) {
-      debugPrint(' [DEFAULT] Error saving default data: $e');
+      debugPrint('🏠❌ [DEFAULT] Error saving default data: $e');
     }
   }
 
@@ -248,6 +269,7 @@ class HomeWidgetService {
         'flutter.next_prayer_time': '--:--:--',
         'flutter.random_dua': duaArabic,
         'flutter.next_prayer': 'Loading... in --:--:--',
+        'flutter.last_update': DateTime.now().toIso8601String(),
 
         'app_name': 'Islamic Toolkit',
         'current_prayer': 'Loading...',
@@ -255,22 +277,23 @@ class HomeWidgetService {
         'next_prayer_time': '--:--:--',
         'random_dua': duaArabic,
         'next_prayer': 'Loading... in --:--:--',
+        'last_update': DateTime.now().toIso8601String(),
       };
 
       for (String key in dataMap.keys) {
         await HomeWidget.saveWidgetData<String>(key, dataMap[key]!);
       }
 
-      debugPrint(' [LOADING] Loading data saved');
+      debugPrint('🏠⏳ [LOADING] Loading data saved');
     } catch (e) {
-      debugPrint(' [LOADING] Error saving loading data: $e');
+      debugPrint('🏠❌ [LOADING] Error saving loading data: $e');
     }
   }
 
   /// Force Widget Update
   static Future<void> _forceWidgetUpdate() async {
     try {
-      debugPrint('📱 [WIDGET] Forcing widget update...');
+      debugPrint('🏠📱 [WIDGET] Forcing widget update...');
 
       // Multiple update attempts for better reliability
       final updateResults = await Future.wait([
@@ -282,41 +305,43 @@ class HomeWidgetService {
       bool anySuccess = updateResults.any((result) => result == true);
 
       if (anySuccess) {
-        debugPrint(' [WIDGET] Widget updated successfully!');
+        debugPrint('🏠✅ [WIDGET] Widget updated successfully!');
       } else {
-        debugPrint(' [WIDGET] All update attempts returned false');
+        debugPrint('🏠⚠️ [WIDGET] All update attempts returned false');
       }
     } catch (e) {
-      debugPrint('[WIDGET] Widget update error: $e');
+      debugPrint('🏠❌ [WIDGET] Widget update error: $e');
     }
   }
 
-  /// Start Periodic Updates
+  /// Start Periodic Updates (Reduced frequency - only when app is active)
   static void startPeriodicUpdates() {
     if (!_isInitialized) {
-      debugPrint('[TIMER] Cannot start - not initialized');
+      debugPrint('🏠❌ [TIMER] Cannot start - not initialized');
       return;
     }
 
     _updateTimer?.cancel();
 
-    // Update every 60 seconds for better performance
-    _updateTimer = Timer.periodic(const Duration(seconds: 60), (timer) {
+    // Update every 15 minutes when app is active (Android AlarmManager handles when app is killed)
+    _updateTimer = Timer.periodic(const Duration(minutes: 15), (timer) {
       final now = DateTime.now();
-      debugPrint(' [TIMER] Auto update at ${now.toString().substring(11, 19)}');
+      debugPrint(
+        '🏠⏰ [TIMER] Periodic update at ${now.toString().substring(11, 19)}',
+      );
       _performDataUpdate();
     });
 
-    debugPrint(' [TIMER] Started periodic updates (60s interval)');
+    debugPrint('🏠✅ [TIMER] Started periodic updates (15 min interval)');
   }
 
   ///  Background Callback
   static Future<void> backgroundCallback(Uri? data) async {
-    debugPrint(' [CALLBACK] Background triggered: ${data?.toString()}');
+    debugPrint('🏠🔄 [CALLBACK] Background triggered: ${data?.toString()}');
 
     if (_ref != null && _isInitialized) {
       await _performDataUpdate(force: true);
-      debugPrint(' [CALLBACK] Background update completed');
+      debugPrint('🏠✅ [CALLBACK] Background update completed');
     }
   }
 
@@ -342,25 +367,33 @@ class HomeWidgetService {
 
   ///  Cleanup
   static void dispose() {
-    debugPrint(' [DISPOSE] Disposing HomeWidgetService...');
+    debugPrint('🏠🧹 [DISPOSE] Disposing HomeWidgetService...');
 
     _updateTimer?.cancel();
     _updateTimer = null;
     _ref = null;
     _isInitialized = false;
     _duaIndex = 0;
+    _lastUpdateTime = null;
 
-    debugPrint(' [DISPOSE] HomeWidgetService disposed');
+    debugPrint('🏠✅ [DISPOSE] HomeWidgetService disposed');
   }
 
   ///  Debug Status
   static void debugStatus() {
-    debugPrint(' [DEBUG] HomeWidgetService Status:');
-    debugPrint('   Initialized: $_isInitialized');
-    debugPrint('   Ref Available: ${_ref != null}');
-    debugPrint('   Timer Active: ${_updateTimer?.isActive ?? false}');
-    debugPrint('   Current Dua Index: $_duaIndex');
-    debugPrint('   Widget Name: $_widgetName');
-    debugPrint('   Android Provider: $_androidProviderName');
+    debugPrint('🏠🐛 [DEBUG] HomeWidgetService Status:');
+    debugPrint('🏠   Initialized: $_isInitialized');
+    debugPrint('🏠   Ref Available: ${_ref != null}');
+    debugPrint('🏠   Timer Active: ${_updateTimer?.isActive ?? false}');
+    debugPrint('🏠   Current Dua Index: $_duaIndex');
+    debugPrint('🏠   Last Update: $_lastUpdateTime');
+    debugPrint('🏠   Widget Name: $_widgetName');
+    debugPrint('🏠   Android Provider: $_androidProviderName');
+  }
+
+  /// Force immediate widget refresh (for testing)
+  static Future<void> forceRefresh() async {
+    debugPrint('🏠🔧 [FORCE] Force refresh requested');
+    await _performDataUpdate(force: true);
   }
 }

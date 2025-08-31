@@ -5,7 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../view_model/counter_state_provider.dart';
 import '../view_model/ad_manager_provider.dart';
 import '../widgets/custom_app_bar.dart';
-import '../widgets/vibration_dialog.dart';
+import '../utils/vibration_dialog.dart';
+import '../widgets/banner_ad_widget.dart'; // Import the banner ad widget
 
 class CounterScreen extends ConsumerStatefulWidget {
   const CounterScreen({super.key});
@@ -479,7 +480,12 @@ class _CounterScreenState extends ConsumerState<CounterScreen>
                               ),
                             ],
                           ),
-                          const SizedBox(height: 20),
+
+                          // Banner Ad below the buttons
+                          const SizedBox(
+                            height: 6,
+                          ), // Small space between buttons and ad
+                          const CounterBannerAd(), // Add the banner ad here
                         ],
                       ),
                     ),

@@ -151,7 +151,49 @@
   "hijri_calendar": "Hijri Calendar",
 
     "hour_format_24": "24-Hour Format",
-      "hour_format_12": "12-Hour Format"
+      "hour_format_12": "12-Hour Format",
+
+
+
+       "prayer_notifications": "Prayer Notifications",
+  "receive_notifications_before_prayer_times": "Receive notifications 10 minutes before each prayer time",
+  "daily_dua_notifications": "Daily Dua Notifications", 
+  "receive_random_duas_throughout_the_day": "Receive random duas 3 times throughout the day",
+
+
+   "Notification": "Notification",
+  "New": "New",
+
+
+   "Arabic": "Arabic",
+  "Transliteration": "Transliteration",
+  "Translation": "Translation",
+  "Copy": "Copy",
+  "OK": "OK",
+  "Copied to clipboard": "Copied to clipboar",
+
+
+  "Error loading notifications": "Error loading notifications",
+  "Retry": "Retry",
+
+
+   "No notifications yet": "No notifications yet",
+  "You'll see your notifications here when they arrive": "You'll see your notifications here when they arrive",
+
+
+  "Notifications": "Notifications",
+  "Mark All Read": "Mark All Read",
+  "Clear All": "Clear All",
+  "All notifications marked as read": "All notifications marked as read",
+  "Clear All Notifications": "Clear All Notifications",
+  "Are you sure you want to clear all notifications? This action cannot be undone.": "Are you sure you want to clear all notifications? This action cannot be undone.",
+  "Cancel": "Cancel",
+  "All notifications cleared": "All notifications cleared",
+
+
+  "Today": "Today",
+  "Yesterday": "Yesterday"
+
 
 
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:islamic_toolkit_app/widgets/custom_app_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../widgets/neumorphic_calender_month.dart';
 
 class FullReadOnlyHijriCalendar extends StatelessWidget {
@@ -23,77 +22,53 @@ class FullReadOnlyHijriCalendar extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: CustomAppBar(title: tr("hijri_calendar")),
-      body: AnimationLimiter(
-        child: ListView.builder(
-          itemCount: 12,
-          itemBuilder: (context, monthIndex) {
-            final List<HijriCalendar> monthDays = [];
-            final int currentYear = today.hYear;
+      body: ListView.builder(
+        // Add performance optimizations
+        physics: const BouncingScrollPhysics(),
+        cacheExtent: 500, // Cache nearby items for smoother scrolling
+        itemCount: 12,
+        itemBuilder: (context, monthIndex) {
+          // Generate month days for current month
+          final List<HijriCalendar> monthDays = [];
+          final int currentYear = today.hYear;
 
-            for (int day = 1; day <= 30; day++) {
-              try {
-                final hDate =
-                    HijriCalendar()
-                      ..hYear = currentYear
-                      ..hMonth = monthIndex + 1
-                      ..hDay = day;
+          for (int day = 1; day <= 30; day++) {
+            try {
+              final hDate =
+                  HijriCalendar()
+                    ..hYear = currentYear
+                    ..hMonth = monthIndex + 1
+                    ..hDay = day;
 
-                if (hDate.hMonth == monthIndex + 1) {
-                  monthDays.add(hDate);
-                }
-              } catch (_) {
-                break;
+              if (hDate.hMonth == monthIndex + 1) {
+                monthDays.add(hDate);
               }
+            } catch (_) {
+              break;
             }
+          }
 
-            final temp = HijriCalendar()..hMonth = monthIndex + 1;
-            final isCurrentMonth = (monthIndex + 1 == today.hMonth);
+          final temp = HijriCalendar()..hMonth = monthIndex + 1;
+          final isCurrentMonth = (monthIndex + 1 == today.hMonth);
 
-            return AnimationConfiguration.staggeredList(
-              position: monthIndex,
-              duration: const Duration(milliseconds: 500),
-              child: SlideAnimation(
-                verticalOffset: 50.0,
-                child: FadeInAnimation(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: isCurrentMonth ? 8 : 12,
-                    ),
-                    child: NeumorphicCalendarMonth(
-                      primaryColor: primaryColor,
-                      accentColor: accentColor,
-                      lightColor: lightColor,
-                      textColor: textColor,
-                      shadowColor: shadowColor,
-                      monthName: '${temp.getLongMonthName()} $currentYear هـ',
-                      isCurrentMonth: isCurrentMonth,
-                      today: today,
-                      monthDays: monthDays,
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-      floatingActionButton: ScaleTransition(
-        scale: AlwaysStoppedAnimation(1.0),
-        child: FloatingActionButton(
-          onPressed: () {
-            final currentMonth = today.hMonth - 1;
-            Scrollable.ensureVisible(
-              context,
-              alignment: 0.1,
-              duration: const Duration(milliseconds: 800),
-              curve: Curves.easeInOutQuart,
-            );
-          },
-          backgroundColor: primaryColor,
-          elevation: 8,
-          child: const Icon(Icons.calendar_today, color: Colors.white),
-        ),
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: isCurrentMonth ? 8 : 12,
+            ),
+            child: NeumorphicCalendarMonth(
+              primaryColor: primaryColor,
+              accentColor: accentColor,
+              lightColor: lightColor,
+              textColor: textColor,
+              shadowColor: shadowColor,
+              monthName: '${temp.getLongMonthName()} $currentYear هـ',
+              isCurrentMonth: isCurrentMonth,
+              today: today,
+              monthDays: monthDays,
+            ),
+          );
+        },
       ),
     );
   }
