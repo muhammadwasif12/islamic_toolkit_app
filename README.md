@@ -288,7 +288,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support & Contact
 
 - **GitHub Issues**: [Report Issues](https://github.com/muhammadwasif12/islamic_toolkit_app/issues)
-- **Email**: muhammadwasif629@gmail.com
+- **Email**: muhammadwasifshah629@gmail.com
 - **Developer**: Muhammad Wasif
 - **GitHub**: [muhammadwasif12](https://github.com/muhammadwasif12)
 
