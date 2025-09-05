@@ -74,6 +74,48 @@
 
 <br>
 
+## 📱 App Screenshots
+
+### **🌟 Splash Screen**
+![IMG-20250905-WA0049](https://github.com/user-attachments/assets/e7571a72-add5-4cbc-908f-2f109991c575)
+
+<br>
+
+### **🏠 Home Screen**
+![IMG-20250905-WA0056](https://github.com/user-attachments/assets/25b98524-b068-4a72-9761-8026286b09cf)
+
+<br>
+
+### **🔔 Notification History Screen**
+![IMG-20250905-WA0050](https://github.com/user-attachments/assets/a90ea493-e8ce-4d90-87ce-a9414b0fad9d)
+
+<br>
+
+### **🧭 Qibla Screen**
+![IMG-20250905-WA0055](https://github.com/user-attachments/assets/da183061-6459-4d81-8981-1e8715914697)
+
+<br>
+
+### **📚 Dua's Screen**
+![IMG-20250905-WA0054](https://github.com/user-attachments/assets/538b462c-9473-412a-8fb1-d9cb4422cb0d)
+
+<br>
+
+### **📖 Dua's Detail Screen**
+![IMG-20250905-WA0053](https://github.com/user-attachments/assets/a0ffde7d-3977-43be-adeb-761457be2ba1)
+
+<br>
+
+### **📿 Counter Screen**
+![IMG-20250905-WA0052](https://github.com/user-attachments/assets/be9208a5-ff3d-41b6-b9fa-6c65b8fef287)
+
+<br>
+
+### **⚙️ Settings Screen**
+![IMG-20250905-WA0051](https://github.com/user-attachments/assets/5fa7b24b-e50c-4e29-98b4-5c1a6d266ba2)
+
+<br>
+
 ## 🏗️ Technical Architecture
 
 ### **MVVM Pattern Implementation**
